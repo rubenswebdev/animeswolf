@@ -1,0 +1,33 @@
+<div class="panel panel-default"><!-- Painel Principal -->
+        <div class="panel-heading">SubGrupo</div>
+        <div class="panel-body"><!-- Painel Body -->
+                <form class="form" ng-submit="vm.save()"><!-- Inicio Form -->
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="classe">Classe</label>
+                            <select
+                                ng-model="vm.form.classe"
+                                ng-options="classe._id as classe.nome for classe in vm.classes"
+                                ng-change="vm.getGrupos()" class="form-control" id="classe">
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="grupo">Grupo</label>
+                           <select ng-model="vm.form.grupo" class="form-control">
+                                <option ng-repeat="grupo in vm.grupos" value="{{grupo._id}}">
+                                    {{grupo.nome}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="nome">Nome</label>
+                            <input ng-model="vm.form.nome" id="nome" class="form-control" type="text" />
+                        </div>
+                    </div>
+
+                    <a  ui-sref="subgrupo" class="btn btn-danger">Voltar</a>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+
+                </form><!-- End Form -->
+        </div><!-- End Painel Body -->
+</div>

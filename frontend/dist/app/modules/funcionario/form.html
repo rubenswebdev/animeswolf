@@ -1,0 +1,440 @@
+<div class="panel panel-default"><!-- Painel Principal -->
+   	<div class="panel-heading">Funcionario :</div>
+    <div class="panel-body"><!-- Painel Body -->
+		<ul class="nav nav-tabs" style="margin-bottom: 15px;" ng-init="tab = 1">
+		    <li ng-class="{'active': tab == 1}"><a href="javascript:;" ng-click="tab = 1" data-toggle="tab">Cadastro</a></li>
+		    <li ng-class="{'active': tab == 2}"><a href="javascript:;" ng-click="tab = 2"  data-toggle="tab">Dados Adicionais</a></li>
+		    <li ng-class="{'active': tab == 3}"><a href="javascript:;" ng-click="tab = 3"  data-toggle="tab">Endereço</a></li>
+		    <li ng-class="{'active': tab == 4}"><a href="javascript:;" ng-click="tab = 4"  data-toggle="tab">Contato</a></li>
+		</ul>
+
+		<form name="funcionarioForm" class="form"><!-- Inicio Form -->
+			<div id="myTabContent" class="tab-content"><!-- Corpo Tab -->
+			    <div class="tab-pane fade in" id="home" ng-class="{'active': tab == 1}"><!-- Inicio Tab Cadastro -->
+
+			    	<div class="row">
+			    		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+							<label for="dataValidade">Validade</label>
+				            <input type="text" class="form-control"
+                            uib-datepicker-popup="dd/MM/yyyy"
+                            datepicker-mode="'day'"
+                            min-mode="'day'"
+                            max-mode="'day'"
+                            ng-model="vm.form.dataValidade"
+                            is-open="dataValidade"
+                            close-text="Fechar"
+                            clear-text="Limpar"
+                            current-text="Hoje"
+                            ng-click="dataValidade = true"
+                            id = "dataValidade"
+                            uib-tooltip="Data de Validade"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel"/>
+						</div>
+			    		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			    			<label for="empresa">Empresa</label>
+			        		<input type="text" id="empresa" ng-model="vm.form.empresa" class="form-control"
+			        		uib-tooltip="Nome da Empresa"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+			    		</div>
+			    	</div>
+		        	<div class="row">
+		        		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+							<label for="dataNascimento">Nascimento</label>
+				            <input type="text" class="form-control"
+                            uib-datepicker-popup="dd/MM/yyyy"
+                            datepicker-mode="'day'"
+                            min-mode="'day'"
+                            max-mode="'day'"
+                            ng-model="vm.form.dataNascimento"
+                            is-open="dataNascimento"
+                            close-text="Fechar"
+                            clear-text="Limpar"
+                            current-text="Hoje"
+                            ng-click="dataNascimento = true"
+                            id = "dataNascimento"
+                            uib-tooltip="Data de Nascimento"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel"/>
+						</div>
+
+			        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+			        		<label for="nome">Nome</label>
+			        		<input type="text" id="nome" name="nome" ng-model="vm.form.nome" class="form-control"
+			        		uib-tooltip="Nome completo"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+			        	</div>
+
+			        	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+			        		<label for="cpf">CPF</label>
+			        		<input type="text" id="cpf" class="form-control" ui-br-cpf-mask ng-model="vm.form.cpf"
+			        		uib-tooltip="Numero do CPF sem pontos(.) sem traços(-)"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel"/>
+			        	</div>
+		        	</div>
+		        	<div class="row">
+		        		<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+			        		<label for="rg">RG</label>
+			        		<input type="text" id="rg" ng-model="vm.form.rg" class="form-control"
+			        		uib-tooltip="Numero do RG sem pontos(.) sem traços(-)"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+			        	</div>
+		        		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+			        		<label for="naturalidade">Naturalidade</label>
+			        		<input type="text" id="naturalidade" ng-model="vm.form.naturalidade" class="form-control"
+			        		uib-tooltip="Nome completo da Mae"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+			        	</div>
+			        	<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 form-group">
+			        		<label for="nacionalidade">Nacionalidade</label>
+			        		<input type="text" id="nacionalidade" ng-model="vm.form.nacionalidade" class="form-control"
+			        		uib-tooltip="Nome completo do Pai"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+			        	</div>
+
+		        	</div>
+		        	<div class="row">
+		        		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+			        		<label for="nomeMae">Nome da Mae</label>
+			        		<input type="text" id="nomeMae" ng-model="vm.form.nomeMae" class="form-control"
+			        		uib-tooltip="Nome completo da Mae"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+			        	</div>
+			        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+			        		<label for="nomePai">Nome do Pai</label>
+			        		<input type="text" id="nomePai" ng-model="vm.form.nomePai" class="form-control"
+			        		uib-tooltip="Nome completo do Pai"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+			        	</div>
+
+		        	</div>
+		        	<div class="row">
+		        		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+			        		<div class="togglebutton">
+								<label>
+								Dependentes<br>
+								<input ng-model="vm.form.temDependente" type="checkbox"><span class="toggle" uib-popover="Nao / Sim" popover-trigger="mouseenter"></span>
+								<span class="toogle"></span>
+								</label>
+							</div>
+			        	</div>
+
+		        	</div>
+		        	<div class="row" ng-show="vm.form.temDependente">
+			        	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+			        		<label for="numeroDependentes">Numero de Dependentes</label>
+			        		<input type="text" id="numeroDependentes" string-to-number ng-model="vm.form.numeroDependentes" class="form-control"
+			        		uib-tooltip="Numero de Dependentes"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel"
+					        ng-change="vm.addDependentes()">
+			        	</div>
+			        	    <div class="col-md-12">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Numero</th>
+                                            <th>Nome</th>
+                                            <th>Grau de Parentesco</th>
+                                            <th>Data de Nascimento</th>
+                                            <th>Dependente ate</th>
+                                            <th>Opções</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="success" ng-repeat="dependente in vm.form.dependentes">
+                                        	<td>
+                                        		{{$index + 1}}
+                                        	</td>
+                                            <td>
+                                            	<input type="text" ng-model="vm.form.dependentes[$index].nomeDependente" class="form-control">
+                                            </td>
+                                            <td>
+                                            	<select class="form-control" id="grauParentesco" ng-model="vm.form.dependentes[$index].grauParentesco">
+				                                    <option value="m">Mae</option>
+				                                    <option value="p">Pai</option>
+				                                    <option value="e">Esposo(a)</option>
+				                                    <option value="f">Filho(a)</option>
+				                                    <option value="o">Outros</option>
+			                                	</select>
+			                                </td>
+                                            <td>
+                                            	<input type="text" class="form-control"
+						                            uib-datepicker-popup="dd/MM/yyyy"
+						                            datepicker-mode="'day'"
+						                            min-mode="'day'"
+						                            max-mode="'day'"
+						                            ng-model="vm.form.dependentes[$index].dataNascimentoDependente"
+						                            is-open="dataNascimentoDependente"
+						                            close-text="Fechar"
+						                            clear-text="Limpar"
+						                            current-text="Hoje"
+						                            ng-click="dataNascimentoDependente = true"
+						                            id = "dataNascimentoDependente"
+						                            uib-tooltip="Data de Nascimento"
+											        tooltip-placement="top"
+											        tooltip-trigger="mouseenter"
+											        tooltip-enable="!inputModel"/>
+                                            </td>
+
+                                            <td>
+	                                            <input type="text" class="form-control"
+						                            uib-datepicker-popup="dd/MM/yyyy"
+						                            datepicker-mode="'day'"
+						                            min-mode="'day'"
+						                            max-mode="'day'"
+						                            ng-model="vm.form.dependentes[$index].dataNascimentoDependenteFinal"
+						                            is-open="dataNascimentoDependenteFinal"
+						                            close-text="Fechar"
+						                            clear-text="Limpar"
+						                            current-text="Hoje"
+						                            ng-click="dataNascimentoDependenteFinal = true"
+						                            id = "dataNascimentoDependenteFinal"
+						                            uib-tooltip="Data de Nascimento Final"
+											        tooltip-placement="top"
+											        tooltip-trigger="mouseenter"
+											        tooltip-enable="!inputModel"/>
+										      </td>
+                                            <td>
+                                            	<a href="javascript:;" ng-click="vm.removerDependente($index)">remover</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+		        	</div>
+
+		        	<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+			        		<label for="observacao">Observações</label>
+			        		<textarea ng-model="vm.form.obs" id="observacao" class="form-control"></textarea>
+			        	</div>
+		        	</div>
+
+			    </div><!-- End Tab Cadastro -->
+
+			    <div class="tab-pane fade" id="profile" ng-class="{'active in': tab == 2}"><!-- Inicio Tab Dados Adicionais -->
+
+		        	<div class="row">
+		        		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+							<label for="dataDemissao">Admissao</label>
+				            <input type="text" class="form-control"
+                            uib-datepicker-popup="dd/MM/yyyy"
+                            datepicker-mode="'day'"
+                            min-mode="'day'"
+                            max-mode="'day'"
+                            ng-model="vm.form.dataAdmissao"
+                            is-open="dataAdmissao"
+                            close-text="Fechar"
+                            clear-text="Limpar"
+                            current-text="Hoje"
+                            ng-click="dataAdmissao = true"
+                            id = "dataDemissao"
+                            uib-tooltip="Data de Adimissao na empresa"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel"/>
+						</div>
+						<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+							<label for="dataDemissao">Demissao</label>
+				            <input type="text" class="form-control"
+                            uib-datepicker-popup="dd/MM/yyyy"
+                            datepicker-mode="'day'"
+                            min-mode="'day'"
+                            max-mode="'day'"
+                            ng-model="vm.form.dataDemissao"
+                            is-open="dataDemissao"
+                            close-text="Fechar"
+                            clear-text="Limpar"
+                            current-text="Hoje"
+                            ng-click="dataDemissao = true"
+                            id = "dataDemissao"
+                            uib-tooltip="Data de Demissao da empresa se necessario"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel"/>
+						</div>
+		        	</div>
+		        	<div class="row">
+		        		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+							<label for="dataExameMedico">Ultimo exame medico</label>
+				            <input type="text" class="form-control"
+                            uib-datepicker-popup="dd/MM/yyyy"
+                            datepicker-mode="'day'"
+                            min-mode="'day'"
+                            max-mode="'day'"
+                            ng-model="vm.form.dataExameMedico"
+                            is-open="dataExameMedico"
+                            close-text="Fechar"
+                            clear-text="Limpar"
+                            current-text="Hoje"
+                            ng-click="dataExameMedico = true"
+                            id = "dataExameMedico"
+                            uib-tooltip="Ultimo exame medico de rotina"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel"/>
+						</div>
+						<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+							<label for="dataProximoExameMedico">Proximo exame medico</label>
+				            <input type="text" class="form-control"
+                            uib-datepicker-popup="dd/MM/yyyy"
+                            datepicker-mode="'day'"
+                            min-mode="'day'"
+                            max-mode="'day'"
+                            ng-model="vm.form.dataProximoExameMedico"
+                            is-open="dataProximoExameMedico"
+                            close-text="Fechar"
+                            clear-text="Limpar"
+                            current-text="Hoje"
+                            ng-click="dataProximoExameMedico = true"
+                            id = "dataProximoExameMedico"
+                            uib-tooltip="Ultimo exame medico de rotina"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel"/>
+						</div>
+			        	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+							<label for="dataFerias">Vencimento de Ferias</label>
+				            <input type="text" class="form-control"
+                            uib-datepicker-popup="dd/MM/yyyy"
+                            datepicker-mode="'day'"
+                            min-mode="'day'"
+                            max-mode="'day'"
+                            ng-model="vm.form.dataFerias"
+                            is-open="dataFerias"
+                            close-text="Fechar"
+                            clear-text="Limpar"
+                            current-text="Hoje"
+                            ng-click="dataFerias = true"
+                            id = "dataFerias"
+                            uib-tooltip="Data de Adimissao na empresa"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel"/>
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+			        		<label for="calcado">numero de Calçado</label>
+			        		<input type="number" id="calcado" ng-model="vm.form.calcado" class="form-control"
+			        		uib-tooltip="Numero de calçado"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+			        	</div>
+			        	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+			        		<label for="vestimenta">numero de Vestimenta</label>
+			        		<input type="text" id="vestimenta" ng-model="vm.form.vestimenta" class="form-control"
+			        		uib-tooltip="Numero de Vestimenta"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+			        	</div>
+
+			        </div><!-- ROW -->
+			    </div><!-- End Tab Dadoas Adicionais -->
+			        <div class="tab-pane fade" id="endereco" ng-class="{'active in': tab == 3}"><!-- Tab Endereço -->
+
+			        	<div ng-repeat="endereco in vm.form.enderecos">
+
+							<div class="row">
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="cep">Cep</label>
+	                                <input type="text" ng-blur="vm.getCep($index)" ui-br-cep-mask  ng-model="endereco.cep" id="cep" class="form-control">
+	                            </div>
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="logradouro">Logradouro</label>
+	                                <input type="text"  ng-model="endereco.logradouro" id="logradouro" class="form-control">
+	                            </div>
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="numero">Número</label>
+	                                <input type="text"  ng-model="endereco.numero" id="numero" class="form-control">
+	                            </div>
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="complemento">Complemento</label>
+	                                <input type="text"  ng-model="endereco.complemento" id="complemento" class="form-control">
+	                            </div>
+							</div>
+
+							<div class="row">
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="bairro">Bairro</label>
+	                                <input type="text"  ng-model="endereco.bairro" id="bairro"class="form-control">
+	                            </div>
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="cidade">Cidade</label>
+	                                <input type="text"  ng-model="endereco.cidade" id="cidade"class="form-control">
+	                            </div>
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="uf">UF</label>
+	                                <input type="text"  ng-model="endereco.uf" id="uf"class="form-control">
+	                            </div>
+							</div>
+
+                        </div>
+
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<button type="button" id="adcionaContatoEndereco" ng-click="vm.addEndereco()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Adicionar Endereço</button>
+							</div>
+						</div>
+
+			        </div><!-- End Tab Enereço -->
+			        <div class="tab-pane fade" id="contato" ng-class="{'active in': tab == 4}"><!-- Tab Contato -->
+			        	<div ng-repeat="contato in vm.form.contatos">
+
+			        		<div class="row">
+			                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+			                        <label for="emailContato">Email</label>
+			                        <input type="text" id="emailContato" ng-model="contato.email"  class="form-control">
+			                    </div>
+			        		</div>
+
+			        		<div class="row">
+			                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+			                        <label for="tipoContato">Tipo</label>
+				                    <select  id="tipoContato" class="form-control" ng-model="contato.tipo" ng-options="tipo._id as tipo.nome for tipo in vm.tipos">
+				                    </select>
+			                    </div>
+			                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+			                        <label for="telefoneContato">Telefone</label>
+			                        <input type="text" id="telefoneContato" ng-model="contato.telefone"  class="form-control" ui-br-phone-number>
+			                    </div>
+			        		</div>
+
+		                </div>
+		        		<div class="row">
+							<div class="col-lg-12 col-md-12  col-sm-12 col-xs-12">
+								<button ng-click="vm.addContato()" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Adicionar Contato</button>
+							</div>
+		                </div>
+			        </div><!-- End Tab Contato -->
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<a  class="btn btn-danger" ui-sref="funcionario">Cancelar</a>
+					<button type="button" ng-click = "vm.save()" class="btn btn-success">Salvar</button>
+				</div>
+			</div>
+		</form><!-- End Form -->
+	</div><!-- End Corpo Tab -->
+</div><!-- End Painel Body -->

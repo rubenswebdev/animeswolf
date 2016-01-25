@@ -1,0 +1,19 @@
+<div class="panel panel-default"><!-- Painel Principal -->
+        <div class="panel-heading">Situação:</div>
+        <div class="panel-body"><!-- Painel Body -->
+                <form class="form" ng-submit="vm.save()"><!-- Inicio Form -->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <label for="cadDesUnidade">Banco</label>
+                        <input  ng-model="vm.form.nome"  type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <label for="seleClienteVenc">Código</label>
+                        <input  ng-model="vm.form.codigo"  type="text" class="form-control">
+                    </div>
+
+                    <a  ui-sref="banco" class="btn btn-danger">Voltar</a>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+
+                </form><!-- End Form -->
+        </div><!-- End Painel Body -->
+</div>

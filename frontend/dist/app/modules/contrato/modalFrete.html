@@ -1,0 +1,80 @@
+<div class="panel panel-default"><!-- Painel Principal -->
+        <div class="panel-heading">Cotação de frete</div>
+        <div class="panel-body"><!-- Painel Body -->
+                <form class="form"><!-- Inicio Form -->
+					<div class="row">
+
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<label for="origem">Endereço de origem</label>
+							<select ng-model="vm.form.origem" class="form-control" name="origem" id="origem" ng-change="vm.calcularDistancia()">
+								<option  ng-repeat="endereco in vm.config.enderecos" value="{{endereco.logradouro}} {{endereco.cep}}, {{endereco.cidade}} {{endereco.uf}}">{{endereco.logradouro}}, {{endereco.cidade}} - {{endereco.uf}}</option>
+							</select>
+						</div>
+
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<label for="destino">Endereço de destino</label>
+							<select ng-model="vm.form.destino" class="form-control" name="destino" id="destino" ng-change="vm.calcularDistancia()">
+								<option  ng-repeat="endereco in vm.enderecos" value="{{endereco.logradouro}} {{endereco.cep}}, {{endereco.cidade}} {{endereco.uf}}">{{endereco.logradouro}}, {{endereco.cidade}} - {{endereco.uf}}</option>
+							</select>
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					    	<button type="button" ng-click="vm.calcularDistancia()" class="btn btn-info" >Calcular distância</button>
+					    </div>
+				    </div>
+
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<label for="kmRodado">KM Rodado</label>
+							<input ng-change="vm.getTotal()" type="text" class="form-control" ui-money-mask id="kmRodado" ng-model="vm.form.kmRodado">
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							<label for="cargaDescarga">Carga / Descarga</label>
+							<input ng-change="vm.getTotal()" type="text" class="form-control" ui-money-mask id="cargaDescarga" ng-model="vm.form.cargaDescarga">
+						</div>
+						<!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+							<label for="custoCombustivel">Custo combustível</label>
+							<input ng-change="vm.getTotal()" type="text" class="form-control" ui-money-mask id="custoCombustivel" ng-model="vm.form.custoCombustivel">
+						</div> -->
+					</div>
+
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							<label for="qtdPedagio">Qtd de pedágios</label>
+							<input ng-change="vm.getTotal()" type="text" class="form-control" id="qtdPedagio" ng-model="vm.form.qtdPedagio">
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							<label for="totalPedagio">Total R$ pedágios</label>
+							<input ng-change="vm.getTotal()" type="text" class="form-control" ui-money-mask id="totalPedagio" ng-model="vm.form.totalPedagio">
+						</div>
+
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							<label for="total">Total desc.</label>
+							<input type="text" class="form-control" ui-money-mask id="total" ng-model="vm.form.total">
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							<label for="totalWork">Total Work.</label>
+							<input type="text" class="form-control" ui-money-mask id="totalWork" ng-model="vm.form.totalWork">
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						   	<span>{{vm.mapa.distance}}</span> <span>{{vm.mapa.tempo}}</span>
+						    <iframe width="100%" scrolling="no" height="350" frameborder="0" id="map" marginheight="0" marginwidth="0" src=""></iframe>
+						</div>
+					</div>
+
+                    <div class="row">
+	                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+	                        <a class="btn btn-danger" ng-click="vm.cancel()">Cancelar</a>
+	                        <button type="button" class="btn btn-success" ng-click="vm.cotar()">Cotar</button>
+	                    </div>
+                    </div>
+
+                </form><!-- End Form -->
+        </div><!-- End Painel Body -->
+</div>

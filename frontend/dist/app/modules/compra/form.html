@@ -1,0 +1,183 @@
+<form class="form" ng-submit="vm.save()"><!-- Inicio Form -->
+    <div class="panel panel-default"><!-- Painel Principal -->
+        <div class="panel-heading">Cadastro de compras</div>
+        <div class="panel-body"><!-- Painel Body -->
+
+            <ul class="nav nav-tabs" style="margin-bottom: 15px;" ng-init="tab = 1">
+                <li ng-class="{'active': tab == 1}"><a href="javascript:;" ng-click="tab = 1">Dados do fornecedor</a></li>
+                <li ng-class="{'active': tab == 2}"><a href="javascript:;" ng-click="tab = 2">Produtos</a></li>
+                <li ng-class="{'active': tab == 3}"><a href="javascript:;" ng-click="tab = 3">Forma de pagamento</a></li>
+            </ul>
+
+
+            <div id="myTabContent" class="tab-content"><!-- Corpo Tab -->
+
+                <div class="tab-pane fade" id="dados" ng-class="{'active in': tab == 1}"><!-- Inicio Tab dados -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label for="fornecedor">Fornecedor</label>
+                            <select ng-disabled="vm.form._id" class="form-control" name="fornecedor" id="fornecedor" ng-model="vm.form.fornecedor" ng-options="fornecedor._id as fornecedor.nome for fornecedor in vm.fornecedores"></select>
+                        </div>
+                    </div>
+                </div><!-- End Tab dados -->
+
+                <div class="tab-pane fade" id="item" ng-class="{'active in': tab == 2}"><!-- Inicio Tab Endereço -->
+
+                        <div class="row" ng-hide="vm.form._id">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                    <label for="produtoModel">Produtos</label>
+                                  <input type="text" id="produtoModel" autocomplete="off" typeahead-on-select="vm.addProdutoBag()"
+                                  ng-model="vm.bag.produtoModel" uib-typeahead="produto as produto.nome for produto in vm.produtos | filter: $viewValue | limitTo:8" class="form-control">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs- 12">
+                                <label for="qtdCompra">Quantidade</label>
+                                <input type="text" id="qtdCompra" name="qtdCompra" ng-model="vm.bag.quantidade" class="form-control">
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+                                <label for="">Unidade</label>
+                                <p>{{vm.bag.unidade.sigla}}</p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <label for="valorUnitario">Valor unitário</label>
+                                <input type="text" id="valorUnitario" name="valorUnitario" ng-model="vm.bag.valorUnitario" class="form-control" ui-money-mask>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                              <button type="button" ng-click="vm.addProduto()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
+                            </div>
+                        </div>
+
+                        <div class="row" >
+                            <div class="col-md-12">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Valor unitário</th>
+                                            <th>Valor total</th>
+                                            <th>Opções</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="produto in vm.form.produtos">
+                                            <td>{{produto.produtoModel.nome}}{{produto.produto.nome}}</td>
+                                            <td>
+                                                <input ng-disabled="vm.form._id" type="text" ng-model="vm.form.produtos[$index].quantidade"> {{produto.produto.unidade.sigla}}{{produto.produtoModel.unidade.sigla}}
+                                            </td>
+                                            <td>
+                                                <input ng-disabled="vm.form._id" ui-money-mask type="text" ng-model="vm.form.produtos[$index].valorUnitario">
+                                            </td>
+                                            <td>{{produto.valorUnitario * produto.quantidade | currency: 'R$ '}}</td>
+                                            <td><a ng-hide="vm.form._id" href="javascript:;" ng-click="vm.removerProduto($index)">remover</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+
+
+                        <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+                                    <label for="desconto">Desconto</label>
+                                    <input ng-disabled="vm.form._id" type="text" id="desconto" class="form-control"  ui-money-mask ng-model="vm.form.desconto">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+                                    <label for="frete">Frete</label>
+                                    <input ng-disabled="vm.form._id" type="text" id="frete"  class="form-control" ui-money-mask ng-model="vm.form.frete">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+                                    <label for="despesaAdicional">Despesas adicionais</label>
+                                    <input ng-disabled="vm.form._id" type="text" id="despesaAdicional" class="form-control"  ui-money-mask ng-model="vm.form.despesaAdicional">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+                                    <label for="municipioFornecedor">Valor total da compra R$</label><br >
+                                    <span>{{vm.getTotal() | currency: 'R$ '}}</span>
+                                </div>
+                        </div>
+
+
+                </div><!-- End Tab Dadoas Adicionais -->
+
+                <div class="tab-pane fade" id="pagamento" ng-class="{'active in': tab == 3}">
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                            <div class="togglebutton">
+                                <label>
+                                Gerar lançamento<br>
+                                <input ng-disabled="vm.form._id" ng-model="vm.form.gerarLancamento" type="checkbox"><span class="toggle"></span>
+                                <span class="toogle"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group" ng-show="vm.form.gerarLancamento">
+                            <label for="parcelamento">Parcelamento</label>
+                            <select ng-disabled="vm.form._id" class="form-control" id="parcelamento" ng-model="vm.form.parcelamento" ng-options="parcelamento._id as parcelamento.nome for parcelamento in vm.parcelamentos">
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+                            <label for="modeloNf">Modelo NF</label>
+                            <input type="text" id="modeloNf" name="modeloNf" class="form-control" ng-model="vm.form.modeloNf">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+                            <label for="serieNf">Série NF.</label>
+                            <input type="text" id="serieNf" name="serieNf" class="form-control" ng-model="vm.form.serieNf">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+                            <label for="numeroNf">Número NF</label>
+                            <input type="text" id="numeroNf" name="numeroNf" class="form-control" ng-model="vm.form.numeroNf">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                            <label for="data">Data da compra</label>
+                            <input type="text" class="form-control"
+                                uib-datepicker-popup="dd/MM/yyyy"
+                                datepicker-mode="'day'"
+                                min-mode="'day'"
+                                max-mode="'day'"
+                                ng-model="vm.form.data"
+                                is-open="open"
+                                close-text="Fechar"
+                                clear-text="Limpar"
+                                current-text="Hoje"
+                                ng-click="open = true"
+                                id="data" />
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ng-show="vm.form.gerarLancamento">
+                            <label for="primeiroVencimento">Primeiro vencimento</label>
+                            <input ng-disabled="vm.form._id" type="text" class="form-control"
+                                uib-datepicker-popup="dd/MM/yyyy"
+                                datepicker-mode="'day'"
+                                min-mode="'day'"
+                                max-mode="'day'"
+                                ng-model="vm.form.primeiroVencimento"
+                                is-open="openV"
+                                close-text="Fechar"
+                                clear-text="Limpar"
+                                current-text="Hoje"
+                                ng-click="openV = true"
+                                id="primeiroVencimento" />
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label for="obs">Observações</label>
+                            <textarea class="form-control" name="obs" id="obs"></textarea>
+                        </div>
+                    </div>
+
+                </div><!-- End Tab pagamento -->
+            </div>
+
+            <a ui-sref="compra" class="btn btn-danger">Cancelar</a>
+            <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+    </div>
+</form><!-- End Form -->

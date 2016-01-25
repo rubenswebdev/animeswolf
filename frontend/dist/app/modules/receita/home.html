@@ -1,0 +1,201 @@
+<div ui-view>
+
+    <ul class="breadcrumb" style="margin-bottom: 5px;">
+      <li><a ui-sref="dashboard">Início</a></li>
+      <li><a ui-sref="financeiro">Financeiro</a></li>
+      <li class="active">Receitas</li>
+    </ul> <br>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Receitas:</div>
+                    <div class="panel-body">
+                        <div class="control-group">
+                            <a ui-sref="receita.add" class="btn btn-success">Nova</a>
+                            <button ng-click="vm.excluir()" ng-disabled="vm.nothingSelected()" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+                        </div>
+                        <form ng-submit="vm.filtrar()">
+                          <div class="row">
+                               <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+                                  <label for="vencDespesa">De:</label>
+                                  <input type="text" class="form-control"
+                                  uib-datepicker-popup="dd/MM/yyyy"
+                                  datepicker-mode="'day'"
+                                  min-mode="'day'"
+                                  max-mode="'day'"ng-change="vm.filtrar()"
+                                  ng-click="openDe = true"
+                                  ng-model="vm.filtro.vencimento.$gte"
+                                  is-open="openDe"
+                                  close-text="Fechar"
+                                  clear-text="Limpar"
+                                  current-text="Hoje" />
+                              </div>
+                              <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+                                  <label for="vencDespesa">Até:</label>
+                                  <input type="text" class="form-control"
+                                  uib-datepicker-popup="dd/MM/yyyy"
+                                  datepicker-mode="'day'"
+                                  min-mode="'day'"
+                                  max-mode="'day'"ng-change="vm.filtrar()"
+                                  ng-click="openAte = true"
+                                  ng-model="vm.filtro.vencimento.$lt"
+                                  is-open="openAte"
+                                  close-text="Fechar"
+                                  clear-text="Limpar"
+                                  current-text="Hoje" />
+                              </div>
+                              <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 " ng-show="!vm.form._id">
+                                  <label>Categoria:</label>
+                                  <select ng-model="vm.filtro.categoria" ng-change="vm.filtrar()" class="form-control">
+                                    <option value="0">Todas as categorias</option>
+                                    <option value="{{categoria._id}}" ng-repeat="categoria in vm.categorias">{{categoia.codContabil}}. {{categoria.nome}}</option>
+                                  </select>
+                              </div>
+
+                              <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" ng-show="!vm.form._id">
+                                  <label>Situação:</label>
+                                  <select ng-model="vm.filtro.recebido" ng-change="vm.filtrar()" class="form-control">
+                                    <option value="0">Todas situações</option>
+                                    <option value="true">Quitadas</option>
+                                    <option value="false">Pendentes</option>
+                                  </select>
+                              </div>
+
+                              <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" ng-show="!vm.form._id">
+                                  <label>Valor de:</label>
+                                  <input type="text" ng-change="vm.filtrar()" ui-money-mask ng-model="vm.filtro.valor.$gte" class="form-control">
+                              </div>
+
+                              <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" ng-show="!vm.form._id">
+                                  <label>Valor até:</label>
+                                  <input type="text" ng-change="vm.filtrar()" ui-money-mask ng-model="vm.filtro.valor.$lte" class="form-control">
+                              </div>
+
+                          </div>
+
+
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                <label for="seleClienteVenc">Cliente:</label>
+                                <select ng-model="vm.filtro.cliente" ng-change="vm.filtrar()" class="form-control" id="seleClienteVenc">
+                                  <option value="0">Todos</option>
+                                  <option value="{{cliente._id}}" ng-repeat="cliente in vm.clientes">{{cliente.nome}}</option>
+                                </select>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <a ng-click="vm.removerFiltros()" href="">Remover filtros</a> <br><br><br>
+                            </div>
+                          </div>
+                        </form>
+
+                    <div ng-show="vm.lista">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div class="checkbox">
+                                          <label>
+                                            <input ng-click="vm.selectAll()" ng-model="vm.selector" type="checkbox"><span class="checkbox-material"><span class="check"></span></span>
+                                          </label>
+                                        </div>
+                                    </th>
+                                    <th>Parcela</th>
+                                    <!--<th>Parcela origem</th>-->
+                                    <th>Documento</th>
+                                    <th>Categoria</th>
+                                    <th>Descrição</th>
+                                    <th>Vencimento</th>
+                                    <th>Cliente</th>
+                                    <th>Valor</th>
+                                    <th>Quitada</th>
+                                    <!-- <th>Despesa fixa?</th> -->
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in vm.lista" ng-class="{'warning': vm.validarAviso(item), 'danger': vm.validarHojeOuAtraso(item), 'success': item.recebido}">
+                                    <td>
+                                       <div class="checkbox">
+                                         <label>
+                                           <input type="checkbox" ng-model="vm.lista[$index].selecionado">
+                                            <span class="checkbox-material">
+                                                <span class="check"></span>
+                                            </span>
+                                         </label>
+                                       </div>
+                                    </td>
+                                    <td>{{item.numeroParcela}}</td>
+                                    <!--<td><a ng-show="item.contaPai._id" href="/#/receitas/edit/{{item.contaPai._id}}">ver</a></td>-->
+                                    <td>{{item.documento}}</td>
+                                    <td><span ng-show="item.categoria.codContabil">{{item.categoria.codContabil}}.</span> {{item.categoria.nome}} </td>
+                                    <td>{{item.descricao}}</td>
+                                    <td>{{item.vencimento | date: 'dd/MM/yyyy'}}</td>
+                                  <!--   <td ng-show="!item.acaba">{{item.vencimento | date: 'dd/MM/yyyy'}} FIXA {{item.acaba}}</td> -->
+                                    <td>{{item.cliente.nome}}</td>
+                                    <td>{{item.valor | currency: "R$ "}}</td>
+                                    <td>{{item.recebido ? (item.dataPagamento | date: 'dd/MM/yyyy') : ''}}</td>
+                                    <!-- <td>{{!item.acaba ? 'Sim' : 'Não'}}</td> -->
+                                    <td>
+                                       <a href="/#/receitas/edit/{{item._id}}">editar</a>
+                                       <span> | </span>
+                                       <a ng-show="!item.recebido" href="/#/receitas/quitar/{{item._id}}">quitar</a>
+                                       <a ng-show="item.recebido" href="/#/receitas/quitar/{{item._id}}">desfazer quitação</a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <uib-pagination
+                          ng-model="vm.pagination.currentPage"
+                          total-items="vm.pagination.total"
+                          items-per-page="vm.pagination.itemsPerPage"
+                          max-size="5"
+                          boundary-links="true"
+                          previous-text="<"
+                          next-text=">"
+                          first-text="primeira"
+                          last-text="ultima"
+                          >
+                        </uib-pagination>
+
+
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th>Total</th>
+                                  <th>Juros</th>
+                                  <th>Descontos</th>
+                                  <th>Total quitado</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td class="text-info">{{vm.total | currency: 'R$ '}}</td>
+                                  <td class="text-danger">{{vm.juros | currency: 'R$ '}}</td>
+                                  <td class="text-warning">{{vm.descontos | currency: 'R$ '}}</td>
+                                  <td class="text-success">{{vm.totalPago | currency: 'R$ '}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            Previsto <span class="text-info">{{vm.total | currency: 'R$ '}}</span>  / Realizado <span class="text-success">{{vm.totalPago | currency: 'R$ '}}</span>
+                            <div class="progress progress-striped">
+                              <div class="progress-bar" role="progressbar" aria-valuenow="{{(vm.totalPago / vm.total) * 100}}" aria-valuemin="0" aria-valuemax="100" style="width: {{(vm.totalPago / vm.total) * 100}}%;">
+                                {{vm.porc}}%
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+</div>

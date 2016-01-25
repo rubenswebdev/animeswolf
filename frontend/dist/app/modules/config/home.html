@@ -1,0 +1,155 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+        <ul class="breadcrumb" style="margin-bottom: 5px;">
+          <li><a ui-sref="dashboard">Início</a></li>
+          <li><a ui-sref="financeiro">Opçoes</a></li>
+          <li class="active">Configuraçoes</li>
+        </ul> <br>
+        <form ng-submit="vm.save()">
+            <div class="panel panel-default"><!-- Painel Principal -->
+                    <div class="panel-heading">
+                        Fornecedores
+                    </div>
+                    <div class="panel-body"><!-- Painel Body -->
+
+                        <ul class="nav nav-tabs" style="margin-bottom: 15px;" ng-init="tab = 1">
+                            <li><a href="javascript:;" ng-click="tab = 1">Informações</a></li>
+                            <li><a href="javascript:;" ng-click="tab = 2">Endereços</a></li>
+                            <li><a href="javascript:;" ng-click="tab = 3">Contatos</a></li>
+                            <li><a href="javascript:;" ng-click="tab = 4">Dados do Responsável</a></li>
+                        </ul>
+
+                        <div id="myTabContent" class="tab-content"><!-- Corpo Tab -->
+
+
+                                <div class="tab-pane fade" ng-class="{'active in': tab == 1}"><!-- Inicio Tab dados -->
+                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                                            <label for="nome">Nome</label>
+                                            <input type="text"  ng-model="vm.form.nome" id="nome" class="form-control">
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                                            <label for="cpfCnpj">CPF/ CNPJ</label>
+                                            <input type="text"  ng-model="vm.form.cpfCnpj" id="cpfCnpj" class="form-control" ui-br-cpfcnpj-mask>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+                                            <label for="numeroContrato">Número inicial do contrato</label>
+                                            <input type="text" ng-model="vm.form.numeroContrato" id="numeroContrato" class="form-control">
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+                                            <label for="numeroOrcamento">Número inicial do orçamento</label>
+                                            <input type="text" ng-model="vm.form.numeroOrcamento" id="numeroOrcamento" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                            <label for="site">Site</label>
+                                            <input type="text"  ng-model="vm.form.site" id="site" class="form-control">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="kmRodado">KM rodado</label>
+                                            <input type="text" ui-money-mask ng-model="vm.form.kmRodado" id="kmRodado" class="form-control">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="cargaDescarga">Carga Descarga</label>
+                                            <input type="text" ui-money-mask  ng-model="vm.form.cargaDescarga" id="cargaDescarga" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                            <label for="upload">Logo</label>
+                                            <input id="upload" ngf-select="" ngf-pattern="'image/*'" ng-model="vm.form.upload" type="file" class="form-control">
+                                            <div class="row">
+                                                <div  class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                    <div class="thumbnail">
+                                                        <img ng-src="/uploads/{{vm.form.logo}}" alt="{{vm.form.logo}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div><!-- End Tab dados -->
+
+
+                                <div class="tab-pane fade" ng-class="{'active in': tab == 2}"><!-- Inicio Tab Endereço -->
+                                    <div ng-repeat="endereco in vm.form.enderecos">
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="cep">Cep</label>
+                                            <input type="text" ng-blur="vm.getCep($index)" ui-br-cep-mask  ng-model="endereco.cep" id="cep" class="form-control">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="logradouro">Logradouro</label>
+                                            <input type="text"  ng-model="endereco.logradouro" id="logradouro" class="form-control">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="numero">Número</label>
+                                            <input type="text"  ng-model="endereco.numero" id="numero" class="form-control">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="complemento">Complemento</label>
+                                            <input type="text"  ng-model="endereco.complemento" id="complemento" class="form-control">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="bairro">Bairro</label>
+                                            <input type="text"  ng-model="endereco.bairro" id="bairro"class="form-control">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="cidade">Cidade</label>
+                                            <input type="text"  ng-model="endereco.cidade" id="cidade"class="form-control">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="uf">UF</label>
+                                            <input type="text"  ng-model="endereco.uf" id="uf"class="form-control">
+                                        </div>
+                                        <div class="col-md-12"></div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <button ng-click="vm.addEndereco()" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-plus"></span>Novo Endereço</button>
+                                    </div>
+                                </div><!-- End Tab Dadoas Adicionais -->
+
+
+                                <div class="tab-pane fade" ng-class="{'active in': tab == 3}"><!-- Inicio Tab  -->
+                                    <div ng-repeat="contato in vm.form.contatos">
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="nomeContato">Nome</label>
+                                            <input type="text" id="nomeContato" ng-model="contato.nome" class="form-control">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="emailContato">Email</label>
+                                            <input type="text" id="emailContato" ng-model="contato.email"  class="form-control">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="telefoneContato">Telefone</label>
+                                            <input type="text" id="telefoneContato" ng-model="contato.telefone"  class="form-control" ui-br-phone-number>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                            <label for="tipoContato">Tipo</label>
+                                            <select  id="tipoContato" class="form-control" ng-model="contato.tipo"  ng-options="tipo._id as tipo.nome for tipo in vm.tipos"
+                                            >
+                                            </select>
+                                        </div>
+                                        <div class="list-group-separator"></div>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 form-group">
+                                        <button ng-click="vm.addContato()" type="button" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-plus" ></span>Adicionar</button>
+                                    </div>
+                                </div><!-- End Tab  -->
+
+
+
+                                <div class="tab-pane fade" ng-class="{'active in': tab == 4}">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                        <label for="responsavelNome">Nome</label>
+                                        <input type="text" id="responsavelNome" ng-model="vm.form.responsavelNome"   class="form-control">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                        <label for="responsavelEmail">Email</label>
+                                        <input type="text" id="responsavelEmail"  ng-model="vm.form.responsavelEmail"   class="form-control">
+                                    </div>
+                                </div>
+                        </div> <!-- myTabContent -->
+
+
+                        <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+                            <a class="btn btn-danger" ui-sref="dashboard">Cancelar</a>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                    </div><!--Panel body-->
+            </div><!-- Panel -->
+        </form>
+</div><!-- End Row -->

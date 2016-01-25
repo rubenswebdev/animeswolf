@@ -1,0 +1,15 @@
+<div ui-view>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Contrato</div>
+					<iframe id="pdfV" src=""></iframe>
+                </div>
+                <button class="btn btn-danger" ui-sref="produtoCustom">Voltar</button>
+                <button class="btn btn-success" ng-click="vm.download()">Download (incluindo imagem(s) dos produto(s))</button>
+</div>
+
+<style>
+	#pdfV {
+	    width: 100%;
+	    min-height: 768px;
+	}
+</style>

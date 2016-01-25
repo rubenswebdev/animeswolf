@@ -1,0 +1,369 @@
+<div class="panel panel-default"><!-- Painel Principal -->
+   	<div class="panel-heading">Cliente :</div>
+    <div class="panel-body"><!-- Painel Body -->
+		<ul class="nav nav-tabs" style="margin-bottom: 15px;" ng-init="tab = 1">
+		    <li ng-class="{'active': tab == 1}"><a href="javascript:;" ng-click="tab = 1" data-toggle="tab">Cadastro</a></li>
+		    <li ng-class="{'active': tab == 2}"><a href="javascript:;" ng-click="tab= 2" data-toggle="tab">Dados Adicionais</a></li>
+		    <li ng-class="{'active': tab == 3}"><a href="javascript:;" ng-click="tab = 3" data-toggle="tab">Endereço</a></li>
+		    <li ng-class="{'active': tab == 4}"><a href="javascript:;" ng-click="tab = 4" data-toggle="tab">Contato</a></li>
+		    <li ng-class="{'active': tab == 5}"><a href="javascript:;" ng-click="tab = 5" data-toggle="tab">Movimentaçao</a></li>
+		    <li ng-class="{'active': tab == 6}"><a href="javascript:;" ng-click="tab = 6" data-toggle="tab">Referencias</a></li>
+		</ul>
+
+		<form name="clienteForm" class="form" novalidate><!-- Inicio Form -->
+			<div id="myTabContent" class="tab-content"><!-- Corpo Tab -->
+			    <div class="tab-pane fade in" id="home" ng-class="{'active': tab == 1}"><!-- Inicio Tab Cadastro -->
+
+		        	<div class="row">
+			        	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+			        		<label for="nome">Nome</label>
+			        		<input required type="text" id="nome" name="nome" class="form-control" ng-model="vm.form.nome">
+			        	</div>
+
+			        	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+			        		<label for="cpf">CPF/CNPJ</label>
+			        		<input type="text" id="cpf" name="cpf" class="form-control" ui-br-cpfcnpj-mask ng-model="vm.form.cpfCnpj"
+			        		uib-tooltip="Numero do seu CPF ou CNPJ sem pontos(.) sem traços(-)"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel"/>
+			        	</div>
+			        	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+			        		<label for="suframa">Suframa</label>
+			        		<input type="text" name="suframa" id="suframa" ng-model="vm.form.suframa" class="form-control"
+			        		uib-tooltip="Numero do Suframa"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+			        	</div>
+			        	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+				        	<div class="togglebutton">
+								<label>
+								Fornecedor<br>
+								<input ng-model="vm.form.fornecedor" name="fornecedor" type="checkbox"><span class="toggle" uib-popover="Nao / Sim" popover-trigger="mouseenter"></span>
+								<span class="toogle"></span>
+								</label>
+							</div>
+	                	</div>
+		        	</div>
+
+
+		        	<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+			        		<label for="observacao">Observações</label>
+			        		<textarea ng-model="vm.form.obs" id="observacao" name="observacao" class="form-control"></textarea>
+			        	</div>
+		        	</div>
+
+			    </div><!-- End Tab Cadastro -->
+
+			    <div class="tab-pane fade" id="profile" ng-class="{'active in': tab == 2}"><!-- Inicio Tab Dados Adicionais -->
+
+		        	<div class="row">
+			        	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+			        		<label for="seleto">Ramo de atividade</label>
+			                <select  id="seleto" name="seleto" class="form-control" ng-model="vm.form.ramoAtividade" ng-options="ramoAtividade._id as ramoAtividade.nome for ramoAtividade in vm.ramoAtividades"
+			                uib-tooltip="Selecione ramo de atividade do cliente"
+					        tooltip-placement="top"
+					        tooltip-trigger="mouseenter"
+					        tooltip-enable="!inputModel">
+		                    </select>
+			        	</div>
+			        	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+			        		<div class="togglebutton">
+								<label>
+								Isento de ICMS<br>
+								<input ng-model="vm.form.isentoIcms" name="isentoIcms" type="checkbox"><span class="toggle" uib-popover="Nao / Sim" popover-trigger="mouseenter"></span>
+								<span class="toogle"></span>
+								</label>
+							</div>
+			        	</div>
+			        	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+				        	<div class="checkbox">
+	                          <label>
+	                          Empresa optante pelo SIMPLES Nacional<br>
+	                            <input ng-model="vm.form.optanteSimples" name="optanteSimples" type="checkbox"><span class="checkbox-material"><span class="check"></span></span>
+	                          </label>
+
+	                        </div>
+                        </div>
+		        	</div>
+		        	<div class="row">
+			            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group"><!-- inicio form-group da Segunda tab -->
+
+			        		<ul class="nav nav-tabs" style="margin-bottom: 15px;" ng-init="tab2 = 1">
+								<li ng-class="{'active': tab2 == 1}"><a href="javascript:;" ng-click="tab2 = 1" data-toggle="tab">Pessoa Fisica</a></li>
+								<li ng-class="{'active': tab2 == 2}"><a href="javascript:;" ng-click="tab2 = 2" data-toggle="tab">Pessoa Juridica</a></li>
+							</ul>
+
+							<div id="myTabContent2" class="tab-content"><!-- Corpo 2º Tab -->
+							    <div class="tab-pane fade in" ng-class="{'active': tab2 == 1}" id="fisica"><!-- Tab PF -->
+
+									<div class="row">
+								        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+							        		<label for="nascimento">Nascimento</label>
+				                            <input type="text" class="form-control"
+					                            uib-datepicker-popup="dd/MM/yyyy"
+					                            datepicker-mode="'day'"
+					                            min-mode="'day'"
+					                            max-mode="'day'"
+					                            ng-model="vm.form.dataNascimento"
+					                            is-open="open"
+					                            close-text="Fechar"
+					                            clear-text="Limpar"
+					                            current-text="Hoje"
+					                            ng-click="open = true"
+					                            id = "nascimento"
+					                            name = "nascimento"
+					                            uib-tooltip="Data de Nascimento"
+										        tooltip-placement="top"
+										        tooltip-trigger="mouseenter"
+										        tooltip-enable="!inputModel"/>
+							        	</div>
+
+							        	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+							        		<label for="rg2">RG</label>
+							        		<input ng-model="vm.form.rg" type="text" id="rg2" name="rg2" class="form-control"
+							        		uib-tooltip="Numero de identidade digite sem pontos(.) e Traço(-)"
+									        tooltip-placement="top"
+									        tooltip-trigger="mouseenter"
+									        tooltip-enable="!inputModel" >
+							        	</div>
+							        	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+							        		<label for="renda">Renda</label>
+							        		<input ng-model="vm.form.renda" ui-money-mask="2" type="text" id="renda" name="renda" class="form-control">
+							        	</div>
+							        	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+							        		<label for="profissao">Profissao</label>
+							                <select  id="profissao" name="profissao" class="form-control" ng-model="vm.form.profissao" ng-options="profissao._id as profissao.nome for profissao in vm.profissoes">
+			                    			</select>
+							        	</div>
+									</div>
+
+
+									<div class="row">
+							        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+							        		<label for="trabalho">Local de Trabalho</label>
+							        		<input ng-model="vm.form.localTrabalho" type="text" id="trabalho" name="trabalho" class="form-control">
+							        	</div>
+							        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+							        		<label for="admissao">Data de Admissao</label>
+					                            <input type="text" class="form-control"
+						                            uib-datepicker-popup="dd/MM/yyyy"
+						                            datepicker-mode="'day'"
+						                            min-mode="'day'"
+						                            max-mode="'day'"
+						                            ng-model="vm.form.dataAdmissao"
+						                            is-open="openDataAdmissao"
+						                            close-text="Fechar"
+						                            clear-text="Limpar"
+						                            current-text="Hoje"
+						                            ng-click="openDataAdmissao = true"
+						                            id="admissao"
+						                            name="admissao"/>
+							        	</div>
+						        	</div>
+
+									<div class="row">
+							        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+							        		<label for="nomePai">Nome do Pai</label>
+							        		<input ng-model="vm.form.nomePai" type="text" id="nomePai" name="nomePai" class="form-control">
+							        	</div>
+							        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+							        		<label for="nomeMae">Nome da Mae</label>
+							        		<input ng-model="vm.form.nomeMae" type="text" id="nomeMae" name="nomeMae" class="form-control">
+							        	</div>
+						        	</div>
+									<div class="row">
+							        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+							        		<label for="conjuge">Conjuge</label>
+							        		<input ng-model="vm.form.nomeConjugue" type="text" id="conjuge" name="conjuge" class="form-control">
+							        	</div>
+							        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+							        		<label for="cpfConjuge">CPF do Conjuge</label>
+							        		<input ng-model="vm.form.cpfConjugue" type="text" id="cpfConjuge" name = "cpfConjuge"class="form-control" ui-br-cpf-mask>
+							        	</div>
+						        	</div>
+
+							    </div><!-- End Tab PF -->
+
+
+							    <div class="tab-pane fade in" ng-class="{'active': tab2 == 2}"
+							    id="juridico"><!--Tab PJ  -->
+							    	<div class="row">
+								      	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+							        		<label for="nomeFantasia2">Nome Fantasia</label>
+							        		<input ng-model="vm.form.nomeFantasia" type="text" id="nomeFantasia2" name="nomeFantasia2" class="form-control">
+							        	</div>
+							        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+							        		<label for="socioGerente">Socio Gerente</label>
+							        		<input ng-model="vm.form.nomeSocio" type="text" id="socioGerente" name="socioGerente" class="form-control">
+							        	</div>
+							    	</div>
+							    	<div class="row">
+							        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+							        		<label for="inscricaoEstadual">Inscriçao Estadual</label>
+							        		<select ng-init="ufs=['AC','AL','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO']" ng-model="selectedUF" ng-options="uf for uf in ufs" name="estado"></select>
+							        		<input type="text" id="inscricaoEstadual" name="inscricaoEstadual" ng-model="vm.form.ie" ui-br-ie-mask='selectedUF' class="form-control">
+						        		</div>
+						        		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+							        		<label for="inscricaoMunicipal">Inscriçao Municipal</label>
+							        		<input ng-model="vm.form.im" type="text" id="inscricaoMunicipal" name="inscricaoMunicipal" class="form-control">
+						        		</div>
+							    	</div>
+								</div><!-- End Tab PJ -->
+
+
+
+		        			</div><!-- End Corpo 2º Tab -->
+				        </div><!-- End form-group da segunda Tab -->
+			        </div><!-- ROW -->
+			    </div><!-- End Tab Dadoas Adicionais -->
+			        <div class="tab-pane fade" id="endereco" ng-class="{'active in': tab == 3}"><!-- Tab Endereço -->
+
+			        	<div ng-repeat="endereco in vm.form.enderecos">
+
+							<div class="row">
+								<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="tipoEndereco">Tipo de Endereços</label>
+		                               <select class="form-control" id="tipoEndereco" name="tipoEndereco" ng-model="endereco.tipo">
+		                                    <option value="f">Faturamento</option>
+		                                    <option value="e">Entrega</option>
+	                                	</select>
+	                            </div>
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="cep">Cep</label>
+	                                <input type="text" ng-blur="vm.getCep($index)" ui-br-cep-mask  ng-model="endereco.cep" id="cep" name="cep" class="form-control">
+	                            </div>
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="logradouro">Logradouro</label>
+	                                <input type="text"  ng-model="endereco.logradouro" id="logradouro" name="logradouro" class="form-control">
+	                            </div>
+	                            <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12 form-group">
+	                                <label for="numero">Número</label>
+	                                <input type="text"  ng-model="endereco.numero" id="numero" name="numero" class="form-control">
+	                            </div>
+                              	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+	                                <label for="identificacao">Identificação</label>
+	                                <input type="text"  ng-model="endereco.identificacao" placeholder="Ex: Heineken - Ponta Grossa" id="identificacao" name="identificacao" class="form-control">
+								</div>
+							</div>
+
+							<div class="row">
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="complemento">Complemento</label>
+	                                <input type="text"  ng-model="endereco.complemento" id="complemento" name="complemento" class="form-control">
+	                            </div>
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="bairro">Bairro</label>
+	                                <input type="text"  ng-model="endereco.bairro" id="bairro" name="bairro" class="form-control">
+	                            </div>
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="cidade">Cidade</label>
+	                                <input type="text"  ng-model="endereco.cidade" id="cidade" name="cidade" class="form-control">
+	                            </div>
+	                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+	                                <label for="uf">UF</label>
+	                                <input type="text"  ng-model="endereco.uf" id="uf" class="form-control">
+	                            </div>
+							</div>
+
+                        </div>
+
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<button type="button" id="adcionaContatoEndereco" ng-click="vm.addEndereco()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Adicionar Endereço</button>
+							</div>
+						</div>
+
+			        </div><!-- End Tab Enereço -->
+			        <div class="tab-pane fade" id="contato" ng-class="{'active in': tab == 4}"><!-- Tab Contato -->
+			        	<div ng-repeat="contato in vm.form.contatos">
+
+			        		<div class="row">
+			                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+			                        <label for="nomeContato">Nome</label>
+			                        <input type="text" id="nomeContato" name="nomeContato" ng-model="contato.nome" class="form-control">
+			                    </div>
+			                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+			                        <label for="emailContato">Email</label>
+			                        <input type="text" id="emailContato" name="emailContato" ng-model="contato.email"  class="form-control">
+			                    </div>
+			        		</div>
+
+			        		<div class="row">
+			                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+			                        <label for="telefoneContato">Telefone</label>
+			                        <input type="text" id="telefoneContato" name="telefoneContato" ng-model="contato.telefone"  class="form-control" ui-br-phone-number>
+			                    </div>
+			                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+			                        <label for="tipoContato">Tipo</label>
+				                    <select  id="tipoContato" name="tipoContato" class="form-control" ng-model="contato.tipo" ng-options="tipo._id as tipo.nome for tipo in vm.tipos">
+				                    </select>
+			                    </div>
+			        		</div>
+
+		                </div>
+		        		<div class="row">
+							<div class="col-lg-12 col-md-12  col-sm-12 col-xs-12">
+								<button ng-click="vm.addContato()" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Adicionar Contato</button>
+							</div>
+		                </div>
+			        </div><!-- End Tab Contato -->
+			        <div class="tab-pane fade" id="movimentacao" ng-class="{'active in': tab == 5}"><!-- Tab Movimentaçao -->
+				        <div class="row">
+					        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+								<label for="creditoMovimetacao">Limite de credito R$</label>
+								<input ng-model="vm.form.limiteCredito"  type="text" id="creditoMovimetacao" name="creditoMovimetacao" class="form-control" ui-money-mask>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+								<span>Saldo Disponivel R$</span>
+								<span id="saldoMovimentacao">{{cliente.saldoDisponivel}}</span>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+								<span>Primeira Compra</span><br>
+								<span id="prCompraMovimentacao">{{cliente.dataPrimeiraCompra}}</span>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+								<span>Ultima Compra</span><br>
+								<span id="ulCompraMovimentacao">{{cliente.dataUltimaCompra}}</span>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+								<span>Media de Atraso</span>
+								<span id="mdAtrasoMovimentacao">{{cliente.mediaAtraso}}</span>
+							</div>
+						</div>
+			        </div><!-- End Tab referencia -->
+			        <div class="tab-pane fade" id="referencia" ng-class="{'active in': tab == 6}"><!-- Tab Referencias -->
+			        	<div ng-repeat="contato in vm.form.referencias">
+
+				        	<div class="row">
+					        	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									<label for="nomeReferencia">Nome</label>
+									<input ng-model="contato.nome" type="text" id="nomeReferencia" name="nomeReferencia" class="form-control">
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									<label for="telefoneReferencia">Telefone</label>
+									<input ng-model="contato.telefone" type="text" id="telefoneReferencia" name="telefoneReferencia" class="form-control" ui-br-phone-number>
+								</div>
+							</div>
+
+						</div>
+			        	<div class="row">
+							<div class="col-md-12">
+								<button type="button" ng-click="vm.addReferencia()" id="adicionaReferencia" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Adicionar Referencia</button>
+							</div>
+						</div>
+			        </div><!-- End Tab Referencias -->
+			</div>
+
+			<div class="row">
+                <div class="col-md-12">
+                    <a ui-sref="clientes" class="btn btn-danger">Cancelar</a>
+                    <button type="submit" ng-click = "vm.save(clienteForm.$valid)" ng-disabled = "!clienteForm.nome.$valid" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+
+		</form><!-- End Form -->
+	</div><!-- End Corpo Tab -->
+</div><!-- End Painel Body -->

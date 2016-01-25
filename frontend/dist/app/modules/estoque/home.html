@@ -1,0 +1,66 @@
+<div ui-view>
+
+                <ul class="breadcrumb" style="margin-bottom: 5px;">
+                  <li><a ui-sref="dashboard">Início</a></li>
+                  <li><a ui-sref="estoque">Estoque</a></li>
+                  <li class="active">Movimentaçao de Estoque</li>
+                </ul> <br>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Alterações de estoque</div>
+                        <div class="panel-body">
+
+                          <div class="control-group">
+                              <div class="form-group">
+
+                                      <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <label for="produtoNome">Produto / Modelo</label>
+                                            <input
+                                              autocomplete="off"
+                                              type="text"
+                                              typeahead-on-select=""
+                                              ng-model="vm.form.produto" id="produtoNome"
+                                              uib-typeahead="produto as produto.nome for produto in vm.produtos | filter: $viewValue | limitTo:8"
+                                              class="form-control">
+                                        </div>
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                          <table class="table">
+                                            <thead>
+                                              <tr>
+                                                <th>Produto</th>
+                                                <th>Em estoque</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>{{vm.form.produto.nome}}</td>
+                                                <td>{{vm.form.produto.quantidade}}</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+
+                                      <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                          <label for="quantidadeMov">Quantidade a movimentar</label>
+                                          <input autocomplete="off" name="quantidadeMov" type="number" ng-model="vm.form.quantidade" class="form-control">
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                          <button class="btn btn-success" ng-click="vm.addEstoque()" ng-disabled="!vm.form.quantidade || !vm.form.produto">Adicionar {{vm.form.quantidade}} ao estoque</button>
+                                          <button class="btn btn-danger" ng-click="vm.removeEstoque()" ng-disabled="!vm.form.quantidade || !vm.form.produto">Remover {{vm.form.quantidade}} do estoque</button>
+                                        </div>
+                                      </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+</div>

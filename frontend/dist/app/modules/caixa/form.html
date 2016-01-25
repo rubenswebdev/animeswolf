@@ -1,0 +1,49 @@
+<div class="panel panel-default"><!-- Painel Principal -->
+        <div class="panel-heading">Caixa</div>
+        <div class="panel-body"><!-- Painel Body -->
+                <form class="form" ng-submit="vm.save()"><!-- Inicio Form -->
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="nome">Caixa</label>
+                            <input  ng-model="vm.form.nome" id="nome" type="text" class="form-control">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="banco">Banco</label>
+                            <select class="form-control" id="banco" ng-model="vm.form.banco" ng-options="banco._id as banco.nome for banco in vm.bancos">
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="saldo">Saldo</label>
+                            <input  ng-model="vm.form.saldo" id="saldo"  type="text" ui-money-mask="2" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+                            <label for="agencia">Agência</label>
+                            <input  ng-model="vm.form.agencia" id="agencia"  type="text" class="form-control">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+                            <label for="numero">Número</label>
+                            <input  ng-model="vm.form.numero" id="numero"  type="text" class="form-control">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+                            <label for="telefone">Telefone</label>
+                            <input  ng-model="vm.form.telefone" id="telefone"  type="text" class="form-control" ui-br-phone-number>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group">
+                            <label for="gerente">Gerente</label>
+                            <input  ng-model="vm.form.gerente" id="gerente"  type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a  ui-sref="caixa" class="btn btn-danger">Voltar</a>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                    </div>
+
+                </form><!-- End Form -->
+        </div><!-- End Painel Body -->
+</div>

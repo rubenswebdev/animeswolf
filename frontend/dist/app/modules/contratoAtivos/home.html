@@ -1,0 +1,40 @@
+<div ui-view>
+  <ul class="breadcrumb" style="margin-bottom: 5px;">
+    <li><a ui-sref="dashboard">Início</a></li>
+    <li><a ui-sref="financeiro">Comercial</a></li>
+    <li class="active">Mapas de contratos Ativos</li>
+  </ul> <br>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Contratos Ativos</div>
+            <div class="panel-body">
+                <div class="control-group">
+                    <a ui-sref="contrato.add" class="btn btn-success">Novo contrato</a>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ng-map zoom="4" style="display: block; height: 600px;" center="[-15.46, -47.55]" >
+                      <info-window id="foo">
+                        <div ng-non-bindable="">
+                          Nº Contrato: {{vm.store.numeroContrato}}<br/>
+                          Cliente: {{vm.store.cliente.nome}}<br/>
+                          Validade:  {{vm.store.validade | date: 'dd/MM/yyyy'}}<br/>
+                        </div>
+                      </info-window>
+                      <marker ng-repeat="item in vm.pontos" position="{{item}}"
+                      icon="{{vm.image}}"
+                      on-click="vm.showStore(event, item[2])"
+                      ></marker>
+                       <custom-control id="home" position="TOP_RIGHT" index="1" class="label label-primary" style="font-size: 170%;">
+                          <div>
+                                {{vm.topo}}
+                          </div>
+                        </custom-control>
+                    </ng-map>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

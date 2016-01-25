@@ -1,0 +1,197 @@
+<section class="view-container animate-fade-up">
+    <div class="page page-profile ng-scope">
+        <header class="profile-header">
+            <h3>{{vm.produto.nome}}</h3>
+
+            <h5>
+                Cliente: {{vm.produto.contrato.cliente.nome}}
+            </h5>
+
+            <div class="profile-info">
+                <ul class="list-unstyled list-inline">
+                    <li>
+                        <i class="fa fa-dot-circle-o"></i> Classe
+                        <span class="text-muted">{{vm.produto.classe.nome}}</span>
+                    </li>
+                    <li>
+                        <i class="fa fa-dot-circle-o"></i> Grupo
+                        <span class="text-muted">{{vm.produto.grupo.nome}}</span>
+                    </li>
+                    <li>
+                        <i class="fa fa-dot-circle-o"></i> Subgrupo
+                        <span class="text-muted">{{vm.produto.subgrupo.nome}}</span>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-xs-12" ng-show="vm.produto.quantidade == 0 || (vm.produto.contrato && vm.produto.contrato.vigente)">
+                <div class="panel mini-box bg-danger">
+                <span class="btn-icon btn-icon-lg-alt">
+                    <i class="fa fa-calendar"></i>
+                </span>
+                <div class="box-info">
+                    <h3>Indisponível</h3>
+                    <small class="muted">
+                        Contrato {{vm.produto.contrato.numeroContrato}} finaliza em {{ vm.produto.contrato.validade | date: 'dd/MM/yyyy' }}
+                        <br >
+                        <span ng-show="vm.produto.contrato.dataDevolucao">
+                            Devolução programada para: <b>{{vm.produto.contrato.dataDevolucao | date: 'dd/MM/yyyy'}}</b>
+                        </span>
+
+                    </small><br >
+                    <small class="muted">
+                        <h5><a href="javascript:;" ng-click="vm.open()">Finalizar Contrato</a></h5>
+                    </small>
+                </div>
+                </div>
+            </div>
+
+             <div class="col-sm-12 col-md-12 col-xs-12" ng-show="vm.produto.quantidade > 0 && !vm.produto.contrato">
+                <div class="panel mini-box bg-success">
+                <span class="btn-icon btn-icon-lg-alt">
+                    <i class="fa fa-calendar"></i>
+                </span>
+                <div class="box-info">
+                    <a href="#/contrato/add?produto={{vm.produto._id}}">
+                        <h3>Disponível</h3>
+                        <small class="muted">
+                            Adicionar contrato
+                        </small>
+                    </a>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="panel mini-box">
+                <div class="box-info">
+                    <h3>{{vm.produto.modelo}}</h3>
+                    <small>{{vm.produto.marca.nome}}</small>
+                </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel mini-box">
+                <span class="btn-icon btn-icon-lg-alt">
+                    <i class="fa fa-barcode"></i>
+                </span>
+                <div class="box-info">
+                    <h3>{{vm.produto.id}}</h3>
+                    <small>Identificação</small>
+                </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="panel mini-box">
+                <span class="btn-icon btn-icon-lg-alt">
+                    <i class="fa fa-usd"></i>
+                </span>
+                <div class="box-info">
+                    <h3>{{vm.produto.valorMensal | currency: 'R$ '}}</h3>
+                    <small>por mês</small>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4>Descrição Técnica</h4>
+                    </div>
+                    <blockquote ng-bind-html="vm.produto.descricaoTecnica | nl2br">
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4>Ilustrativas</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4" ng-repeat="ft in vm.produto.imagensIlustrativas">
+                                <div class="ih-item ih-material">
+                                    <a ng-click="vm.lightbox($index, vm.produto.imagensIlustrativas)">
+                                        <div class="img">
+                                                <img ng-src="/uploads/{{ft}}" >
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4>Fotos</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4" ng-repeat="ft in vm.produto.imagens">
+                                <div class="ih-item ih-material">
+                                    <a ng-click="vm.lightbox($index, vm.produto.imagens)">
+                                        <div class="img">
+                                                <img ng-src="/uploads/{{ft}}" >
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h4>Histórico</h4>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Número contrato</th>
+                                    <th>Cliente</th>
+                                    <th>Validade</th>
+                                    <th>Data devolução</th>
+                                    <th>Taxa de desmobilização</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="historico in vm.historicos">
+                                    <td>{{historico.numeroContrato}}</td>
+                                    <td>{{historico.cliente.nome}}</td>
+                                    <td>{{historico.validade | date: 'dd/MM/yyyy'}}</td>
+                                    <td ng-show="historico.dataDevolucao">{{historico.dataDevolucao | date: 'dd/MM/yyyy'}}</td>
+                                    <td>{{historico.taxaDesmobilizacao | currency: 'R$ '}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <a ng-click="vm.voltar()" class="btn btn-danger">Voltar</a>
+    </div>
+</section>
+
+

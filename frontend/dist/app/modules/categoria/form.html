@@ -1,0 +1,38 @@
+<div class="panel panel-default"><!-- Painel Principal -->
+        <div class="panel-heading">Categoria:</div>
+        <div class="panel-body"><!-- Painel Body -->
+                <form class="form" ng-submit="vm.save()"><!-- Inicio Form -->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <label for="tipo">Tipo:</label>
+                        <select class="form-control" id="tipo" ng-model="vm.form.tipo" required>
+                            <option value="R">Receitas</option>
+                            <option value="D">Despesas</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <label for="pai">Categoria Pai</label>
+                        <select class="form-control" id="pai" ng-model="vm.form.pai" ng-options="categoria._id as categoria.nome for categoria in vm.categorias ">
+                        </select>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 form-group">
+                        <label for="nome">Código Contábil</label>
+                        <input ng-model="vm.form.codContabil"  id="codContabil" type="number" class="form-control">
+                    </div>
+
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 form-group">
+                        <label for="nome">Categoria</label>
+                        <input  ng-model="vm.form.nome"  id="nome" type="text" class="form-control">
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <label for="descricao">Descrição</label>
+                        <textarea ng-model="vm.form.descricao" id="descricao" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
+
+                    <a  ui-sref="categoria" class="btn btn-danger">Voltar</a>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+
+                </form><!-- End Form -->
+        </div><!-- End Painel Body -->
+</div>

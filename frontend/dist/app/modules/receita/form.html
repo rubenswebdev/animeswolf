@@ -1,0 +1,189 @@
+<div class="panel panel-default"><!-- Painel Principal -->
+        <div class="panel-heading">Receita</div>
+        <div class="panel-body"><!-- Painel Body -->
+                <form class="form" name="receitaForm" novalidate><!-- Inicio Form -->
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-1e2 col-xs-12 form-group">
+                                <label for="vencDespesa">Vencimento</label>
+                                <input type="text" class="form-control"
+                                uib-datepicker-popup="dd/MM/yyyy"
+                                datepicker-mode="'day'"
+                                min-mode="'day'"
+                                max-mode="'day'"
+                                ng-click="open = true"
+                                ng-model="vm.form.vencimento"
+                                ng-disabled="vm.form.recebido"
+                                is-open="open"
+                                close-text="Fechar"
+                                clear-text="Limpar"
+                                current-text="Hoje" />
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="nomeCliente">Cliente</label>
+                            <select name="nomeCliente" class="form-control" id="nomeCliente"
+                            ng-disabled="vm.form.recebido"
+                            ng-model="vm.form.cliente"
+                            ng-options="cliente._id as cliente.nome for cliente in vm.clientes"
+                            required>
+                            <option>Selecione Cliente</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="DescricaoVenc">Descriçao</label>
+                            <input class="form-control" id="DescricaoVenc" name="DescricaoVenc" ng-model="vm.form.descricao">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="valor">Valor R$</label>
+                            <input name="valor" id="valor" ng-disabled="vm.form.recebido" type="text" class="form-control" ng-model="vm.form.valor"  ng-change="vm.calculaVencimentos()" ui-money-mask>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="documentoVenc">Documento</label>
+                            <input class="form-control" id="documentoVenc" name="documentoVenc" ng-model="vm.form.documento">
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group">
+                            <label for="categoria">Categoria</label>
+                            <select name="categoria" ng-model="vm.form.categoria"
+                            ng-options="categoria._id as (categoria.codContabil+'. '+categoria.nome) for categoria in vm.categorias" class="form-control" id="categoria">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ng-show="!vm.form._id">
+                            <div class="togglebutton">
+                                <label>
+                                     Repetir<br>
+                                    <input id="statusVenc" name="statusVenc" type="checkbox" ng-model="vm.form.repetir">
+                                    <span class="toggle"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group" ng-show="!vm.form._id && vm.form.repetir">
+                            <label for="periodicidadeDesp">Periodicidade</label>
+                            <select ng-change="vm.calculaVencimentos()" class="form-control" ng-disabled="!vm.form.repetir" name="periodicidadeDesp"  id="periodicidadeDesp" ng-model="vm.form.periodicidade">
+                                <option value="1">Diária</option>
+                                <option value="7">Semanal</option>
+                                <option value="30">Mensal</option>
+                                <option value="90">Trimestral</option>
+                                <option value="180">Semestral</option>
+                                <option value="360">Anual</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group" ng-show="!vm.form._id && vm.form.repetir">
+                            <label for="vezes">Vezes</label>
+                            <input type="number" ng-change="vm.calculaVencimentos()" ng-disabled="!vm.form.repetir" class="form-control" name="vezes" id="vezes" ng-model="vm.form.vezes">
+                        </div>
+                    </div>
+
+
+                   <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" ng-show="!vm.form._id && vm.form.repetir" ng-repeat="vencimento in vm.form.vencimentos track by $index">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="vencimentoDes">Vencimento #{{vm.form.vencimentos[$index].parcela}}</label>
+                                    <input
+                                        type="text"
+                                        id = "vencimentoDes"
+                                        name = "vencimentoDes"
+                                        class="form-control"
+                                        uib-datepicker-popup="dd/MM/yyyy"
+                                        datepicker-mode="'day'"
+                                        min-mode="'day'"
+                                        max-mode="'day'"
+                                        ng-click="open = true"
+                                        ng-model="vm.form.vencimentos[$index].vencimento"
+                                        is-open="open"
+                                        close-text="Fechar"
+                                        clear-text="Limpar"
+                                        current-text="Hoje"
+                                    />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="valorVen">Valor:</label>
+                                    <input type="text" name="valorVen" name="valorVen" ui-money-mask class="form-control" ng-model="vm.form.vencimentos[$index].valor">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" ng-show="!vm.form._id">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <div class="togglebutton">
+                                <label>
+                                     Pago<br>
+                                    <input id="statusVenc" name="statusVenc" type="checkbox" ng-model="vm.form.recebido">
+                                    <span class="toggle"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group" ng-show="vm.form.recebido">
+                            <label for="cadVenc">Caixa</label>
+                            <select ng-model="vm.form.caixa" class="form-control" id="cadVenc" name="cadVenc"  ng-options="caixa._id as (caixa.nome +' (saldo:  '+(caixa.saldo | currency: 'R$ ') + ')') for caixa in vm.caixas">
+                            </select>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group"  ng-show="vm.form.recebido">
+                            <label for="reciboVenc">Forma de Pagamento</label>
+                            <select class="form-control" id="reciboVenc" name="reciboVenc" ng-model="vm.form.formaPagamento" ng-options="forma._id as forma.nome for forma in vm.formasPagamento">
+                            </select>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-group"  ng-show="vm.form.recebido">
+                                <label for="dataPagamentoQuit">Data recebimento</label>
+                                <input type="text" class="form-control"
+                                uib-datepicker-popup="dd/MM/yyyy"
+                                ng-click="dataPagamentoQuit = true"
+                                ng-model="vm.form.dataPagamento"
+                                is-open="dataPagamentoQuit"
+                                name="dataPagamentoQuit"
+                                id="dataPagamentoQuit"
+                                close-text="Fechar"
+                                clear-text="Limpar"
+                                current-text="Hoje" />
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group"  ng-show="vm.form.recebido">
+                            <label for="valorPago">Valor pago</label>
+                            <input type="text" name="valorPago" id="valorPago" class="form-control" ui-money-mask ng-change="vm.calcJurosDesc()" ng-model="vm.form.valorPago">
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group"  ng-show="vm.form.recebido">
+                            <label for="desconto">Desconto</label>
+                            <input type="text" name="desconto" id="desconto" disabled class="form-control" ui-money-mask ng-model="vm.form.desconto">
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 form-group"  ng-show="vm.form.recebido">
+                            <label for="juros">Juros</label>
+                            <input type="text" name="juros" id="juros" disabled class="form-control" ui-money-mask ng-model="vm.form.juros">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                            <label for="observacaoReceita">Observaçoes</label>
+                            <textarea id="observacaoReceita" name="observacaoReceita" class="form-control" ng-model="vm.form.obs"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <a ng-hide="vm.item" ui-sref="receita" class="btn btn-danger">Voltar</a>
+                    <a ng-hide="!vm.item" class="btn btn-danger" ng-click="vm.cancel()">Cancelar</a>
+                    <button type="submit" ng-click="vm.save(receitaForm.nomeCliente.$valid)"
+                    ng-disabled = "receitaForm.nomeCliente.$invalid" class="btn btn-success">Salvar</button>
+
+                    </div>
+                </form><!-- End Form -->
+        </div><!-- End Painel Body -->
+</div>

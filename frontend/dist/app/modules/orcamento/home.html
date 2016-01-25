@@ -1,0 +1,149 @@
+<div ui-view>
+                <ul class="breadcrumb" style="margin-bottom: 5px;">
+                  <li><a ui-sref="dashboard">Início</a></li>
+                  <li><a ui-sref="comercial">Comercial</a></li>
+                  <li class="active">Orçamento</li>
+                </ul> <br>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Propostas</div>
+                    <div class="panel-body">
+                        <div class="control-group">
+                            <a ui-sref="orcamento.add" class="btn btn-success">Nova</a>
+                            <button ng-click="vm.excluir()" ng-disabled="vm.nothingSelected()" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>Excluir</button>
+                        </div>
+
+                            <div class="control-group">
+                              <form class="row" ng-submit="vm.filtrar()">
+                                <!--<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+                                    <label for="vencDespesa">De:</label>
+                                    <input type="text" class="form-control"
+                                    uib-datepicker-popup="dd/MM/yyyy"
+                                    datepicker-mode="'day'"
+                                    min-mode="'day'"
+                                    max-mode="'day'"ng-change="vm.filtrar()"
+                                    ng-click="openDe = true"
+                                    ng-model="vm.filtro.data.$gte"
+                                    is-open="openDe"
+                                    close-text="Fechar"
+                                    clear-text="Limpar"
+                                    current-text="Hoje" />
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-group">
+                                    <label for="vencDespesa">Até:</label>
+                                    <input type="text" class="form-control"
+                                    uib-datepicker-popup="dd/MM/yyyy"
+                                    datepicker-mode="'day'"
+                                    min-mode="'day'"
+                                    max-mode="'day'"ng-change="vm.filtrar()"
+                                    ng-click="openAte = true"
+                                    ng-model="vm.filtro.data.$lt"
+                                    is-open="openAte"
+                                    close-text="Fechar"
+                                    clear-text="Limpar"
+                                    current-text="Hoje" />
+                                </div> -->
+
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ng-show="!vm.form._id">
+                                    <label>Finalidade:</label><br />
+                                    <select ng-model="vm.filtro.finalidade" ng-change="vm.filtrar()" class="form-control">
+                                      <option value="0">Todas situações</option>
+                                      <option value="l">Locação</option>
+                                      <option value="v">Venda</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ng-show="!vm.form._id">
+                                    <label>Situação:</label><br />
+                                    <select ng-model="vm.filtro.situacao" ng-change="vm.filtrar()" class="form-control">
+                                      <option value="0">Todas situações</option>
+                                      <option value="e">Em análise</option>
+                                      <option value="a">Aprovado</option>
+                                      <option value="r">Rejeitado</option>
+                                      <option value="s">Sem resposta</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 form-group">
+                                    <label for="seleClienteVenc">Cliente:</label><br />
+                                    <select ng-model="vm.filtro.cliente" ng-change="vm.filtrar()" class="form-control" id="seleClienteVenc">
+                                      <option value="0">Todos</option>
+                                      <option value="{{cliente._id}}" ng-repeat="cliente in vm.clientes">{{cliente.nome}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12 col-xs-12">
+                                    <a ng-click="vm.removerFiltros()" href="">Remover filtros</a> <br><br>
+                                </div>
+                              </form>
+                            </div>
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div class="checkbox">
+                                          <label>
+                                            <input ng-click="vm.selectAll()" ng-model="vm.selector" type="checkbox"><span class="checkbox-material"><span class="check"></span></span>
+                                          </label>
+                                        </div>
+                                    </th>
+                                    <th>Número</th>
+                                    <th>Data</th>
+                                    <th>Cliente</th>
+                                    <th>Produto(s)</th>
+                                    <th>Situaçao</th>
+                                    <th>Opções</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in vm.lista">
+                                    <td>
+                                       <div class="checkbox">
+                                         <label>
+                                           <input type="checkbox" ng-model="vm.lista[$index].selecionado">
+                                            <span class="checkbox-material">
+                                                <span class="check"></span>
+                                            </span>
+                                         </label>
+                                       </div>
+                                    </td>
+                                    <td>{{item.numeroOrcamento}}</td>
+                                    <td>{{item.data | date: 'dd/MM/yyyy'}}</td>
+                                    <td>{{item.cliente.nome}}</td>
+                                    <td>
+                                      <ul>
+                                        <li ng-repeat="p in item.produtos">
+                                          {{p.produto.id}}
+                                        </li>
+                                      </ul>
+                                    </td>
+                                    <td>{{(item.situacao == 'e' ? 'Em análise' : item.situacao == 'a' ? 'Aprovado' : item.situacao == 'r' ? 'Rejeitado' : '')}}</td>
+                                    <!-- vm.getTotalListagem(item) -->
+                                  <td>
+                                     <a href="/#/orcamento/edit/{{item._id}}" class="btn-icon btn-icon-sm info" title="Editar">
+                                       <i class="fa fa-edit"></i>
+                                     </a>
+                                     <!-- <a target="_blank" href="{{vm.api}}/v1/orcamento/pdf/{{item._id}}?token={{vm.token}}">imprimir</a> -->
+                                     <a href="/#/orcamento/pdf/{{item._id}}" class="btn-icon btn-icon-sm info" title="Visualizar">
+                                       <i class="fa fa-eye"></i>
+                                     </a>
+                                  </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <uib-pagination
+                          ng-model="vm.pagination.currentPage"
+                          total-items="vm.pagination.total"
+                          items-per-page="vm.pagination.itemsPerPage"
+                          max-size="5"
+                          boundary-links="true"
+                          previous-text="<"
+                          next-text=">"
+                          first-text="primeira"
+                          last-text="ultima"
+                          >
+                        </uib-pagination>
+                    </div>
+                </div>
+</div>

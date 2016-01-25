@@ -1,0 +1,17 @@
+<div class="panel panel-default"><!-- Painel Principal -->
+        <div class="panel-heading">Unidade:</div>
+        <div class="panel-body"><!-- Painel Body -->
+                <form class="form" ng-submit="vm.save()"><!-- Inicio Form -->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <label for="descricao">Unidade</label>
+                        <input  ng-model="vm.form.descricao"  type="text" id="descricao" name="sigla" class="form-control">
+                        <label for="sigla">Sigla</label>
+                        <input  ng-model="vm.form.sigla"  type="text" id="sigla" name="sigla" class="form-control">
+                    </div>
+
+                    <a  ui-sref="unidade" class="btn btn-danger">Voltar</a>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+
+                </form><!-- End Form -->
+        </div><!-- End Painel Body -->
+</div>
