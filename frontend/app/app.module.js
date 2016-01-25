@@ -81,7 +81,6 @@
         }
 
         /*ADD VALIDACAO FAZER O QUE QUISER COM O TOKEN*/
-        console.log($location.path());
         if ((!JwtService.getToken() || JwtService.getToken() == "null") && $location.path() !== '/cadastro') {
           $location.path('/login');
         }

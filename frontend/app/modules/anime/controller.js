@@ -80,7 +80,7 @@
 					if(vm.form.alternative_titles[i].lang === 'JA') {
 						return vm.form.alternative_titles[i].text;
 					}
-				};
+				}
 			}
 		}
 
@@ -106,12 +106,6 @@
 			if (tipo && valor) {
 				vm.filtroObj[tipo] = valor;
 			}
-
-
-
-			console.log(tipo);
-			console.log(valor);
-			//filtrar();
 		}
 
 		function getItem(id) {
@@ -147,19 +141,21 @@
 		function selectAll() {
 			for (var i = vm.lista.length - 1; i >= 0; i--) {
 				vm.lista[i].selecionado = vm.selector;
-			};
+			}
 		}
 
 		function excluir() {
 			for (var i = vm.lista.length - 1; i >= 0; i--) {
 				if (vm.lista[i].selecionado) {
-					ApiService.del(apiRoute+vm.lista[i]._id).then(function(data) {
-						if (data.ok) {
-							toaster.pop('success', "Mensagem", "Excluido com sucesso!");
-	                	}
-					});
+					ApiService.del(apiRoute+vm.lista[i]._id).then(msg);
 				}
-			};
+			}
+
+			function msg(data) {
+				if (data.ok) {
+					toaster.pop('success', "Mensagem", "Excluido com sucesso!");
+				}
+			}
 
         	$state.go(stateDefault, {},{reload: true, inherit: false});
 		}
@@ -169,7 +165,7 @@
 				if (vm.lista[i].selecionado) {
 					return false;
 				}
-			};
+			}
 			return true;
 		}
 	}
