@@ -3,7 +3,7 @@
                 <ul class="breadcrumb" style="margin-bottom: 5px;">
                   <li><a ui-sref="dashboard">Início</a></li>
                   <li><a ui-sref="cadastro">Cadastro</a></li>
-                  <li class="active">Usuarios</li>
+                  <li class="active">Usuários</li>
                 </ul> <br>
 
                 <div class="panel panel-default">
@@ -36,6 +36,7 @@
                                     <th>login</th>
                                     <th>nome</th>
                                     <th>email</th>
+                                    <th>role</th>
                                     <th>Opções</th>
                                 </tr>
                             </thead>
@@ -54,6 +55,7 @@
                                     <td>{{item.login}}</td>
                                     <td>{{item.nome}}</td>
                                     <td>{{item.email}}</td>
+                                    <td>{{item.role}}</td>
                                     <td>
                                        <a href="/#/usuario/edit/{{item._id}}">editar</a>
                                     </td>

@@ -1,0 +1,29 @@
+<div ui-view>
+      <hr>
+      <div class="row">
+        <div class="control-group col-md-12">
+            <form ng-submit="vm.scroll()">
+              <div class="form-group">
+                <input ng-change="vm.reset()" ng-model="vm.filtro" type="text" class="form-control  input-lg col-md-12" placeholder="buscar">
+              </div>
+            </form>
+        </div>
+      </div>
+
+      <div class="row">
+        <div infinite-scroll="vm.scroll()" infinite-scroll-parent="true" infinite-scroll-distance="0" infinite-scroll-disabled="vm.busy" >
+          <div class="col-md-3 col-sm-12 col-xs-12 animeBox" ng-repeat="item in vm.lista">
+                <a href="/#/anime/details/{{item._id}}">
+                  <div class="col-md-12 animeBg" style="background-image: url({{vm.getMaxImg(item)}})">
+                  <div class="animeRating">{{item.rating | number:1}}</div>
+                  </div>
+                  <div class="col-md-12 animeTitle">
+                    <h5>{{item.name}}</h5>
+                  </div>
+                </a>
+          </div>
+          <div style='clear: both;'></div>
+        </div>
+      </div>
+      <div style='clear: both;'></div>
+</div>
