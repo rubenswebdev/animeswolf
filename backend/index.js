@@ -17,7 +17,7 @@ var mongoose = require('mongoose');
 mongoose.connect(config.database);
 
 app.get('/', function(req, res, next){
-	res.json('online')
+	res.json('online');
 });
 
 /*Seed - rota para cadastrar o admin no banco*/

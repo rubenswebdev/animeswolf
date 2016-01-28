@@ -8,12 +8,9 @@ var bcrypt = require('bcrypt-nodejs');
 exports.index = function(req, res) {
 	var texto = req.body.text;
 
-
-
 	var filtro = {};
 	//filtro.rating = {$exists:true};
 	//filtro["pictures.height"] = {$exists:true};
-
 
 	if (texto) {
 		texto = decodeURI(texto);
@@ -22,12 +19,12 @@ exports.index = function(req, res) {
 		filtro.$or.push({"alternative_titles.text": {$regex: texto, $options: 'ig'} });
 	}
 
-	if (req.body['genres']) {
-		filtro.genres = req.body['genres'];
+	if (req.body.genres) {
+		filtro.genres = req.body.genres;
 	}
 
-	if (req.body['themes']) {
-		filtro.themes = req.body['themes'];
+	if (req.body.themes) {
+		filtro.themes = req.body.themes;
 	}
 
 	console.log(filtro);
@@ -50,7 +47,7 @@ exports.index = function(req, res) {
 				});
 
 		});
-}
+};
 
 exports.genres = function(req, res) {
 	Genre.find({})
