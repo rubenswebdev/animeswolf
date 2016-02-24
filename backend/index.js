@@ -1,9 +1,8 @@
-
+"use strict";
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var server = require('http').Server(app);
-var path = require('path');
 var cors = require('cors');
 
 var config = require('./config');
@@ -16,17 +15,17 @@ app.use(cors());
 var mongoose = require('mongoose');
 mongoose.connect(config.database);
 
-app.get('/', function(req, res, next){
+app.get('/api', function(req, res, next){
 	res.json('online');
 });
 
 /*Seed - rota para cadastrar o admin no banco*/
-app.use('/fixture', require('./app/fixture'));
-app.use('/', require('./app/auth'));
+app.use('/api/fixture', require('./app/fixture'));
+app.use('/api', require('./app/auth'));
 
 /*Mid para rotas da API verificar JWT*/
 var jwt = require('./core/jwt');
-app.use('/v1', jwt);
+app.use('/api/v1', jwt);
 
 /*Modulos*/
 jwt.use('/usuario', require('./app/usuario'));
