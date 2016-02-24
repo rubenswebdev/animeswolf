@@ -4,9 +4,9 @@
 	angular.module("anime")
 		.controller("AnimeController", AnimeController);
 
-	AnimeController.$inject = ['ApiService', '$state', '$stateParams', '$scope', '$filter', 'toaster', '$window', '$document'];
+	AnimeController.$inject = ['ApiService', '$state', '$stateParams', '$scope', '$filter', 'toaster'];
 
-	function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toaster, $window, $document) {
+	function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toaster) {
 		var vm = this;
 		var apiRoute = '/v1/anime/';
 		var stateDefault = 'anime';
@@ -58,14 +58,14 @@
 			});
 		}
 
-		function getMaxImg(item, maximo) {
+		function getMaxImg(item) {
 			if (item._id) {
 				var max = 0;
 				var src = 'assets/img/no-image.jpg';
 				for (var i = item.pictures.length - 1; i >= 0; i--) {
 					var img = item.pictures[i];
 					if (img.height > max) {
-						src = img.src;
+						src = img.src.replace('http', 'https');
 						max = img.height;
 					}
 				}
