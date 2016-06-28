@@ -15,17 +15,17 @@ app.use(cors());
 var mongoose = require('mongoose');
 mongoose.connect(config.database);
 
-app.get('/api', function(req, res, next){
+app.get('/', function(req, res, next){
 	res.json('online');
 });
 
 /*Seed - rota para cadastrar o admin no banco*/
-app.use('/api/fixture', require('./app/fixture'));
-app.use('/api', require('./app/auth'));
+app.use('/fixture', require('./app/fixture'));
+app.use('/', require('./app/auth'));
 
 /*Mid para rotas da API verificar JWT*/
 var jwt = require('./core/jwt');
-app.use('/api/v1', jwt);
+app.use('/v1', jwt);
 
 /*Modulos*/
 jwt.use('/usuario', require('./app/usuario'));
