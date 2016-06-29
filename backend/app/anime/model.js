@@ -32,6 +32,7 @@ var Model = mongoose.Schema({
   opening: [String],
   ending: [String],
   rating: Number,
+  votes: Number,
   staff: [{
     gid: Number,
     task: String,

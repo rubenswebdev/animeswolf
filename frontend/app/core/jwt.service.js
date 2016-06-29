@@ -1,25 +1,25 @@
-(function(){
-	"use strict";
-	angular.module('core')
-		.factory('JwtService', JwtService);
+(function () {
+'use strict';
+angular.module('core')
+ .factory('JwtService', JwtService);
 
-	JwtService.$inject = ["$http", "$q", "myConfig", '$window'];
+JwtService.$inject = ['$http', '$q', 'myConfig', '$window'];
 
-	function JwtService($http, $q, myConfig, $window) {
+function JwtService($http, $q, myConfig, $window) {
 
-		var service = {
-			getToken: getToken,
-			setToken: setToken
-		}
+    var service = {
+        getToken: getToken,
+        setToken: setToken,
+    };
 
-		return service;
+    return service;
 
-		function getToken() {
-			return $window.localStorage.token;
-		}
+    function getToken() {
+        return $window.localStorage.token === 'null' ? false : $window.localStorage.token;
+    }
 
-		function setToken(tk) {
-			$window.localStorage.token = tk;
-		}
-	}
+    function setToken(tk) {
+        $window.localStorage.token = tk;
+    }
+}
 })();

@@ -1,24 +1,27 @@
-(function(){
-	"use strict";
+(function () {
+'use strict';
 
-	angular.module('erp').controller("NavController", NavController);
+angular.module('erp').controller('NavController', NavController);
 
+NavController.$inject = ['ApiService', 'JwtService'];
 
-	NavController.$inject = ['ApiService'];
+function NavController(ApiService, JwtService) {
+    var vm = this;
 
-	function NavController(ApiService) {
-		var vm = this;
+    vm.token = JwtService.getToken();
 
-		start();
+    console.log(vm.token);
 
-		function start() {
-			ApiService.get('/v1/anime/genres').then(function(data){
-				vm.genres = data;
-			});
+    start();
 
-			ApiService.get('/v1/anime/themes').then(function(data){
-				vm.themes = data;
-			});
-		}
-	}
+    function start() {
+        ApiService.get('/anime/genres').then(function (data) {
+            vm.genres = data;
+        });
+
+        ApiService.get('/anime/themes').then(function (data) {
+            vm.themes = data;
+        });
+    }
+}
 })();
