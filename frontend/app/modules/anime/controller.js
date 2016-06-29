@@ -29,13 +29,14 @@ function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toas
     vm.getJAtitle = getJAtitle;
     vm.getMaxImg = getMaxImg;
     vm.scroll = scroll;
+    vm.getAnimesNames = getAnimesNames;
 
     var pageAtual = 0;
     var limitPerPage = 24;
     vm.busy = false;
     var lastFilter;
 
-    function scroll() {
+    function scroll(typeahead) {
         vm.busy = true;
         if (vm.filtro !== lastFilter) {
             pageAtual = 0;
@@ -48,14 +49,27 @@ function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toas
         vm.filtroObj.skip = skip;
         vm.filtroObj.limit = limitPerPage;
 
-        ApiService.post(apiRoute, vm.filtroObj).then(function (response) {
+        if (typeahead) {
+            vm.filtroObj.typeahead = true;
+            return ApiService.post(apiRoute, vm.filtroObj);
+        } else {
+            ApiService.post(apiRoute, vm.filtroObj).then(function (response) {
 
-            for (var i = 0; i <= response.data.length - 1; i++) {
-                vm.lista.push(response.data[i]);
-            }
+                for (var i = 0; i <= response.data.length - 1; i++) {
+                    vm.lista.push(response.data[i]);
+                }
 
-            pageAtual++;
-            vm.busy = false;
+                pageAtual++;
+                vm.busy = false;
+            });
+        }
+    }
+
+    function getAnimesNames(name) {
+        return scroll(true).then(function (response) {
+            return response.data.map(function (item) {
+                return item.name;
+            });
         });
     }
 

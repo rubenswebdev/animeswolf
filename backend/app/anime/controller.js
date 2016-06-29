@@ -32,11 +32,18 @@ exports.index = function (req, res) {
     var skip = parseInt(req.body.skip) || 0;
     var limit = parseInt(req.body.limit) || 25;
 
+    var sortObj = {};
+    if (req.body.typeahead) {
+        sortObj = { name: 1 };
+    } else {
+        sortObj = { 'pictures.height': -1, votes: -1 };
+    }
+
     //db.animes.find({"pictures.height": {$exists: true} }, {"pictures":1}).sort({"pictures.height": 1});
     Model.find(filtro)
      .select('name rating pictures type votes')
      .skip(skip).limit(limit)
-     .sort({ 'pictures.height': -1, votes: -1 })
+     .sort(sortObj)
      .exec(function (err, data) { //o que fazer com o resultado
         Model.find(filtro).count()
         .exec(function (err, total) {
