@@ -1,5 +1,0 @@
-{
-	"node":true,
-	"devel":true,
- 	"predef": ["angular"]
-}
