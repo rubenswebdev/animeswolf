@@ -103,7 +103,9 @@ a {
     font-size: 14px;
 }
 
-
+.navbar-black.navbar-collapse {
+    background: #101010;
+}
 
 
 
