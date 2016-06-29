@@ -15,10 +15,10 @@
           <div class="col-md-3 col-sm-12 col-xs-12 animeBox" ng-repeat="item in vm.lista">
                 <a href="/#/anime/details/{{item._id}}">
                   <div class="col-md-12 animeBg" style="background-image: url({{vm.getMaxImg(item)}})">
-                  <div class="animeRating">{{item.rating | number:1}}</div>
+                  <div class="animeRating"><small class="txt-sm">{{item.votes}}</small> {{item.rating | number:1}}</div>
                   </div>
                   <div class="col-md-12 animeTitle">
-                    <h5>{{item.name}}</h5>
+                    <h5>{{item.name}} {{item.type ? ' - ' + item.type : ''}}</h5>
                   </div>
                 </a>
           </div>
