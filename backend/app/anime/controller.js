@@ -36,7 +36,7 @@ exports.index = function (req, res) {
     Model.find(filtro)
      .select('name rating pictures type votes')
      .skip(skip).limit(limit)
-     .sort({ votes: -1 })
+     .sort({ 'pictures.height': -1, votes: -1 })
      .exec(function (err, data) { //o que fazer com o resultado
         Model.find(filtro).count()
         .exec(function (err, total) {

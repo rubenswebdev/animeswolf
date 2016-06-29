@@ -61,14 +61,13 @@ function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toas
 
     function getMaxImg(item) {
         if (item._id) {
-            var max = 999999;
+            var max = 0;
             var src = 'assets/img/no-image.jpg';
             for (var i = item.pictures.length - 1; i >= 0; i--) {
                 var img = item.pictures[i];
-                if (img.height < max) {
+                if (img.height > max) {
                     src = img.src.replace('http:', '');
                     max = img.height;
-                    console.log(max);
                 }
             }
 
