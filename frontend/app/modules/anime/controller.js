@@ -66,6 +66,7 @@ function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toas
     }
 
     function getAnimesNames(name) {
+        vm.filtro = name;
         return scroll(true).then(function (response) {
             return response.data.map(function (item) {
                 return item.name;
