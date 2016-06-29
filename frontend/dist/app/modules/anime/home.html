@@ -4,7 +4,7 @@
         <div class="control-group col-md-12">
             <form ng-submit="vm.scroll()">
               <div class="form-group">
-                <input ng-change="vm.reset()" ng-model="vm.filtro" type="text" class="form-control  input-lg col-md-12" placeholder="buscar" uib-typeahead="anime for anime in vm.getAnimesNames($viewValue) | limitTo:8" typeahead-on-select="vm.scroll()">
+                <input ng-change="vm.reset()" ng-model="vm.filtro" type="text" class="form-control  input-lg col-md-12" placeholder="buscar" uib-typeahead="anime for anime in vm.getAnimesNames($viewValue) | limitTo:8" typeahead-on-select="vm.scroll()" ng-model-options="{debounce: 500}" typeahead-min-length="3">
               </div>
             </form>
         </div>
