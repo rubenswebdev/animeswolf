@@ -66,7 +66,7 @@ function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toas
             for (var i = item.pictures.length - 1; i >= 0; i--) {
                 var img = item.pictures[i];
                 if (img.height > max) {
-                    src = img.src.replace('http:', '');
+                    src = img.src.replace('http', 'https');
                     max = img.height;
                 }
             }
