@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"animesManga.usuarios"},{"v":1,"unique":true,"key":{"login":1},"name":"login_1","ns":"animesManga.usuarios","background":true}]}
