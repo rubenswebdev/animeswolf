@@ -1,5 +1,5 @@
 body{
-    padding-top: 50px;
+    padding-top: 60px;
 }
 
 .scrollable-menu {
@@ -13,19 +13,24 @@ body{
     height: 50px;
 }
 
+ul.nav.navbar-nav.navbar-left, a.navbar-brand {
+    margin-top: 8px;
+}
+
 .header-fixed {
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
     z-index: 1030;
+    height: 66px;
 }
 
 
 
 .animeBg {
     width:100%;
-    height:250px;
+    height: 400px;
     background-repeat: no-repeat;
     background-size:cover;
     /* background-size: 330px; */
@@ -104,10 +109,43 @@ a {
 }
 
 .navbar-black.navbar-collapse {
-    background: #101010;
+    background: #282829;
 }
 
 
+.opcoes {
+   /* position: relative;
+    top: 50px;
+    z-index: 999;
+    margin: -50px;
+    left: 55px;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.84);
+    color: white;
+    float: left;*/
+    font-size: 16px;
+}
+
+i.fa.fa-check.iconeOpcao {
+    color: #4CAF50;
+    cursor: pointer;
+}
+
+i.fa.fa-check.iconeOpcao:hover {
+    font-size: 45px;
+}
+
+i.fa.fa-check-circle.iconeOpcao {
+    color: #999;
+    cursor: pointer;
+}
+
+i.fa.fa-check-circle.iconeOpcao:hover {
+    font-size: 45px;
+}
+
+.iconeOpcao {
+    margin: 4px;
+}
 
 
 

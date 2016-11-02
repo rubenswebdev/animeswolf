@@ -4,12 +4,16 @@
 angular.module('anime')
  .controller('AnimeController', AnimeController);
 
-AnimeController.$inject = ['ApiService', '$state', '$stateParams', '$scope', '$filter', 'toaster'];
+AnimeController.$inject = ['ApiService', '$state', '$stateParams', '$scope', '$filter', 'toaster', 'JwtService'];
 
-function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toaster) {
+function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toaster, JwtService) {
     var vm = this;
     var apiRoute = '/anime/';
     var stateDefault = 'anime';
+
+    if (JwtService.getToken()) {
+        vm.token = jwt_decode(JwtService.getToken());
+    }
 
     /*Variaveis*/
     vm.lista = [];
@@ -30,6 +34,7 @@ function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toas
     vm.getMaxImg = getMaxImg;
     vm.scroll = scroll;
     vm.getAnimesNames = getAnimesNames;
+    vm.add = add;
 
     var pageAtual = 0;
     var limitPerPage = 24;
@@ -63,6 +68,10 @@ function AnimeController(ApiService, $state, $stateParams, $scope, $filter, toas
                 vm.busy = false;
             });
         }
+    }
+
+    function add(id, finish) {
+        console.log(id, finish);
     }
 
     function getAnimesNames(name) {

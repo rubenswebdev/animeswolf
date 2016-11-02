@@ -2,41 +2,80 @@
   <div class="row animeDetails">
     <div class="bgDark"></div>
     <div class="animeBgDetails col-md-12" style="background-image: url({{vm.getMaxImg(vm.form)}}) "></div>
+
       <div class="col-md-12">
         <h3>Anime - {{vm.form.name}} ({{vm.form.type}}) - {{vm.getJAtitle()}}</h3>
       </div>
       <div class="col-md-3">
         <div class="animeBg" style="background-image: url({{vm.getMaxImg(vm.form)}}) "></div>
-        <div class="col-md-12" ng-show="vm.form.genres[0] !== 'false'">
-          <b>Genêros: </b>
+      </div>
+      <div class="col-md-9">
+
+
+         <div class="col-md-12">
+          <h4 ng-show="vm.form.description !== 'false'"><b>Descrição</b></h4>
+          <p ng-show="vm.form.description !== 'false'">{{vm.form.description}}</p>
+          <a href="http://www.animenewsnetwork.com/encyclopedia/anime.php?id={{vm.form.id}}" target="_blank">Mais informações em ANN</a>
+          <br>
+          <br>
+        </div>
+
+
+        <div class="col-md-12" ng-show="vm.form.genres[0] != 'false'">
+          <h4>Genêros</h4>
           <span ng-repeat="genre in vm.form.genres">
              <a href="#/anime/filtro/genres/{{genre}}">{{genre | lowercase}}</a>
             <span ng-show="$index + 1 != vm.form.genres.length">, </span>
             <span ng-show="$index + 1 == vm.form.genres.length">.</span>
           </span>
+          <br>
+          <br>
         </div>
-        <div class="col-md-12" ng-show="vm.form.themes[0] !== 'false'" >
-            <b>Temas: </b>
+
+        <div class="col-md-12" ng-show="vm.form.themes[0] != 'false'" >
+            <h4>Temas</h4>
             <span ng-repeat="theme in vm.form.themes">
               <a href="#/anime/filtro/themes/{{theme}}">{{theme | lowercase}}</a>
               <span ng-show="$index + 1 != vm.form.themes.length">, </span>
               <span ng-show="$index + 1 == vm.form.themes.length">.</span>
             </span>
+            <br>
+          <br>
         </div>
-      </div>
-      <div class="col-md-9">
-        <h4 ng-show="vm.form.description !== 'false'"><b>Descrição</b></h4>
-        <p ng-show="vm.form.description !== 'false'">{{vm.form.description}}</p>
-        <a href="http://www.animenewsnetwork.com/encyclopedia/anime.php?id={{vm.form.id}}" target="_blank">Mais informações em ANN</a>
 
-        <h4 ng-show="vm.form.number_episodes > 0">Núm. episódios</h4>
-        <a ng-show="vm.form.number_episodes > 0" href="javascript:;" ng-click="vm.isCollapsed = !vm.isCollapsed">{{vm.form.number_episodes}}</a>
+        <div class="col-md-12" ng-show="vm.form.alternative_titles[0] != 'false' && vm.form.alternative_titles[0] != false" >
+            <h4>Títulos alternativos </h4>
+            <span ng-repeat="titulo in vm.form.alternative_titles">
+              <p>{{titulo.lang}} - {{titulo.text}}</p>
+            </span>
+            <br>
+            <br>
+        </div>        
 
-        <div uib-collapse="vm.isCollapsed" ng-show="vm.form.episodes.length > 0">
-          <h4>Episódios</h4>
-          <ul class="list-group">
-            <li class="list-group-item" ng-repeat="epi in vm.form.episodes | orderBy:'num'">{{epi.num}} - {{epi.title}}</li>
-          </ul>
+        <div class="col-md-12" ng-show="vm.form.pictures[0] != 'false'" >
+            <h4>Imagens </h4>
+            <span ng-repeat="foto in vm.form.pictures">
+              <img height="100px" ng-src="{{foto.src}}">
+            </span>
+            <br>
+            <br>
+        </div>
+
+        <div class="col-md-12">
+          <h4 ng-show="vm.form.number_episodes > 0">Núm. episódios</h4>
+          <a ng-show="vm.form.number_episodes > 0" href="javascript:;" ng-click="vm.isCollapsed = !vm.isCollapsed">{{vm.form.number_episodes}}</a>
+
+          <div uib-collapse="vm.isCollapsed" ng-show="vm.form.episodes.length > 0">
+            <h4>Episódios</h4>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="epi in vm.form.episodes | orderBy:'num'">{{epi.num}} - {{epi.title}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<!-- <pre>
+{{vm.form | json}}
+</pre> -->
         </div>
       </div>
 

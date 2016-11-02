@@ -12,7 +12,16 @@
 
       <div class="row">
         <div infinite-scroll="vm.scroll()" infinite-scroll-parent="true" infinite-scroll-distance="0" infinite-scroll-disabled="vm.busy" >
-          <div class="col-md-3 col-sm-12 col-xs-12 animeBox" ng-repeat="item in vm.lista">
+          <div class="col-md-4 col-sm-12 col-xs-12 animeBox" ng-repeat="item in vm.lista">
+               <!--  <div class="opcoes">
+                  <div class="pull-left"><i ng-click="vm.add(item._id, true)" title="Finalizado" class="fa fa-check iconeOpcao" aria-hidden="true"></i></div>
+                  <div class="pull-left"><i ng-click="vm.add(item._id, false)" title="Assistindo" class="fa fa-check-circle iconeOpcao" aria-hidden="true"></i></div>
+                </div> -->
+                <div class="opcoes" ng-show="vm.token">
+                  <button class="btn btn-xs btn-primary btn-raised pull-left">Já finalizei</button>
+                  <button class="btn btn-xs btn-default btn-raised">Estou assistindo</button>
+                  <button class="btn btn-xs btn-info btn-raised pull-right">Quero assistir</button>
+                </div>
                 <a href="/#/anime/details/{{item._id}}">
                   <div class="col-md-12 animeBg" style="background-image: url({{vm.getMaxImg(item)}})">
                   <div class="animeRating"><small class="txt-sm">{{item.votes}}</small> {{item.rating | number:1}}</div>

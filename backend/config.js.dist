@@ -1,5 +1,5 @@
 module.exports = {
-    'secret': 'm4tr1x123erpwebsixW6WinsBetterThenEver',
+    'secret': 'm4g1c13',
     'database': 'mongodb://127.0.0.1:27017/animesManga',
     'uploadPath': '/var/www/animeswolf/frontend/dist/uploads/',
     'port': 7000

@@ -8,7 +8,7 @@
         <a class="navbar-brand" ui-sref="anime" ui-sref-opts="{reload:true}">Animes Wolf</a>
     </div>
     <div class="navbar-black navbar-collapse collapse navbar-responsive-collapse">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-left ">
             <li>
                 <a ui-sref="anime" ui-sref-opts="{reload:true}">Animes</a>
             </li>
@@ -25,11 +25,22 @@
                 </ul>
             </li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-        <li ng-show="vm.token">
-           <a ui-sref="logout">Sair</a>
-        </li>
-      </ul>
+        <form class="navbar-form navbar-right"" role="form">
+            <div class="form-group" ng-show="!vm.token">
+                <label class="sr-only" for="usuario">Usuário</label>
+                <input type="text" ng-model="vm.form.login" class="form-control" id="usuario" placeholder="Usuário">
+            </div>   
+
+            <div class="form-group" ng-show="!vm.token">
+                <label class="sr-only" for="senha">Senha</label>
+                <input type="password" ng-model="vm.form.password" class="form-control" id="senha" placeholder="Senha">
+            </div>
+        
+            <button type="button" ng-show="!vm.token" class="btn btn-primary btn-sm" ng-click="vm.login()">Entrar</button>
+            <button type="button" ng-show="!vm.token" class="btn btn-success btn-sm" ui-sref="cadastro">Cadastrar</button>
+            
+            <button ng-show="vm.token" class="btn btn-sm btn-danger" ng-click="vm.logout()"> {{vm.token.login}} Sair</button>
+        </form>
     </div>
 </div>
 

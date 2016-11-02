@@ -29,9 +29,10 @@
     "angular-morris-chart": "~1.1.0",
     "morris.js": "morrisjs#~0.5.1",
     "raphael": "~2.1.4",
-    "ngInfiniteScroll": "1.0.0"
+    "ngInfiniteScroll": "1.0.0",
+    "jwt-decode": "^2.1.0"
   },
   "resolutions": {
-    "angular": "1.4.9"
+    "angular": "1.5.8"
   }
 }
